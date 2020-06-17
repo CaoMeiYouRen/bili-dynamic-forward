@@ -27,7 +27,7 @@ export function timeFormat(date: Date | number | string = Date.now(), pattern: s
  * @param {number} [level=0]
  */
 export function printTime(msg: string, level: CQLog = CQLog.LOG_DEBUG) {
-    let time = timeFormat(Date.now(), 'HH:mm:ss.SSS')
+    const time = timeFormat(Date.now(), 'HH:mm:ss.SSS')
     switch (level) {
         case CQLog.LOG_DEBUG:
             console.log(time, '->', colors.gray(msg))

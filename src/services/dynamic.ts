@@ -32,7 +32,7 @@ export async function getBiliDynamic(uid: number) {
             // img
             let images: string[] = []
             const getImgs = (data) => {
-                let imgs: string[] = []
+                const imgs: string[] = []
                 // 动态图片
                 if (data.pictures) {
                     for (let i = 0; i < data.pictures.length; i++) {

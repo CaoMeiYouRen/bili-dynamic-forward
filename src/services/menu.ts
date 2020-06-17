@@ -28,7 +28,7 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
         sub_type = SubscribeType.group
     }
     if (/^bili订阅列表$/i.test(msg)) {
-        let subscribes = (await querySubscribe(sub_id, sub_type))
+        const subscribes = (await querySubscribe(sub_id, sub_type))
         if (subscribes.length === 0) {
             text = '非常抱歉，未查询到您的订阅。发送 bili订阅 + uid 即可订阅up主动态'
             return sendMsg(text, user_id, group_id)
@@ -43,13 +43,13 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
             text = '非常抱歉，群订阅仅管理员可用！'
             return sendMsg(text, user_id, group_id)
         }
-        let uid = getNumber(msg)
+        const uid = getNumber(msg)
         if (!uid) {
             text = '要订阅的uid为空！'
             return sendMsg(text, user_id, group_id)
         }
         try {
-            let sub = await subscribeUp(uid, sub_id, sub_type)
+            const sub = await subscribeUp(uid, sub_id, sub_type)
             if (sub) {
                 text = `订阅用户 ${sub.userName}(uid: ${sub.userId}) 成功！`
                 return sendMsg(text, user_id, group_id)

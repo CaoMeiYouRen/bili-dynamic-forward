@@ -118,11 +118,11 @@ export async function transferSubscribeUp(userId: number, subId: number, subType
  * @param {string} subType 订阅类型 personal/group
  */
 export async function unsubscribeUp(userId: number, subId: number, subType: string) {
-    let sub = SUBSCRIBE_LIST.find((e => e.userId === userId))
+    const sub = SUBSCRIBE_LIST.find((e => e.userId === userId))
     if (!sub) {
         throw new SubscribeError('该 up 未被任何用户订阅')
     }
-    let suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
+    const suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
     if (suber) {
         _.pull(sub.subscribers, suber)
         if (sub.subscribers.length === 0) {

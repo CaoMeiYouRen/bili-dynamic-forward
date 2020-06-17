@@ -80,7 +80,7 @@ export async function sendPrivateMsg(user_id: number, message: string | CQMessag
     }
     // 返回内容格式 {"data":{"message_id":273},"retcode":0,"status":"ok"}
     try {
-        let result: APIResponse<any> = await bot('send_private_msg', {
+        const result: APIResponse<any> = await bot('send_private_msg', {
             user_id,
             message,
         })
@@ -114,7 +114,7 @@ export async function sendGroupMsg(group_id: number, message: string | CQMessage
     }
     // 返回内容格式 {"data":{"message_id":273},"retcode":0,"status":"ok"}
     try {
-        let result: APIResponse<any> = await bot('send_group_msg', {
+        const result: APIResponse<any> = await bot('send_group_msg', {
             group_id,
             message,
         })
@@ -182,7 +182,7 @@ export async function isGroupAdmin(group_id: number, user_id: number): Promise<b
 */
 export async function getGroupMemberInfo(group_id: number, user_id: number, no_cache: boolean = false): Promise<MemberInfo> {
     if (IS_DEBUG) {
-        let testMemberInfo: MemberInfo = {
+        const testMemberInfo: MemberInfo = {
             group_id,
             user_id,
             nickname: '测试昵称',
@@ -203,7 +203,7 @@ export async function getGroupMemberInfo(group_id: number, user_id: number, no_c
         return testMemberInfo
     }
     try {
-        let result: APIResponse<any> = await bot('get_group_member_info', {
+        const result: APIResponse<any> = await bot('get_group_member_info', {
             group_id, user_id, no_cache,
         })
         if (result['status'] === 'ok') {

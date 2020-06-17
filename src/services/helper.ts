@@ -54,14 +54,14 @@ export async function isValidUser(uid: number): Promise<boolean> {
  * @param {number} uid
  */
 export async function getAllFollowings(uid: number, tag?: number) {
-    let m = await getFollowingNumber(uid)
+    const m = await getFollowingNumber(uid)
     if (m <= 0) {
         return []
     }
-    let n = Math.ceil(m / 50) % 5 + 1// 每页最多50，最多5页
+    const n = Math.ceil(m / 50) % 5 + 1// 每页最多50，最多5页
     let followings: Following[] = []
     for (let i = 0; i < n; i++) {
-        let temp = await getFollowings(uid, i + 1, tag)
+        const temp = await getFollowings(uid, i + 1, tag)
         followings = followings.concat(temp)
     }
     return followings

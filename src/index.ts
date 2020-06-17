@@ -42,7 +42,7 @@ bot.on('message.group', (event, ctx, tags) => {
 bot.on('meta_event.heartbeat', (ctx) => { // 响应心跳连接
     (async function () {
         try {
-            let result = await bot('get_status')
+            const result = await bot('get_status')
             printTime(`API调用测试：get_status:${result.status}`, CQLog.LOG_DEBUG)
             if (result.status !== 'ok') {
                 printTime('发生了异常', CQLog.LOG_ERROR)

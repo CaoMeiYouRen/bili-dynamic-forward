@@ -68,7 +68,7 @@ class AjaxConfig {
 export async function ajax2(config: AjaxConfig = new AjaxConfig()): Promise<AxiosResponse<any>> {
     try {
         const { url, query, data, method, charset } = config
-        let headers = Object.assign({ 'User-Agent': UA, Referer: url }, config.headers)
+        const headers = Object.assign({ 'User-Agent': UA, Referer: url }, config.headers)
         const result = await axios(url, {
             method,
             headers,
