@@ -1,0 +1,19 @@
+{
+    "accessToken": "CMYR",
+    "enableAPI": true,
+    "enableEvent": true,
+    "protocol": "ws:",
+    "host": "127.0.0.1",
+    "port": 6700,
+    "baseUrl": "",
+    "qq": -1,
+    "reconnection": true,
+    "reconnectionAttempts": 100,
+    "reconnectionDelay": 10000,
+    "fragmentOutgoingMessages": false,
+    "fragmentationThreshold": 16000,
+    "tlsOptions": {},
+    "requestOptions": {
+        "timeout": 10000
+    }
+}

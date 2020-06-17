@@ -1,0 +1,9 @@
+dist
+/*.js
+/build/
+node_modules
+public
+*.min.*
+*.test.*
+*.html
+

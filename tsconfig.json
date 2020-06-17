@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "module": "commonjs", //指定生成哪个模块系统代码
+        "target": "es2019", //目标代码类型
+        "declaration": false, //生成类型定义文件
+        "noImplicitAny": false, //在表达式和声明上有隐含的'any'类型时报错。
+        "allowJs": false, //允许编译js文件
+        "checkJs": false, //在 .js文件中报告错误。与 --allowJs配合使用。
+        "sourceMap": true, //用于debug
+        "rootDir": "./src", //仅用来控制输出的目录结构--outDir。
+        "outDir": "./dist", //重定向输出目录。
+        "watch": false, //在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。
+        "strict": true, //启用严格模式
+        "removeComments": true,
+        "moduleResolution": "node",
+        "strictPropertyInitialization": false,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true, //开启装饰器
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true, //不允许对同一文件进行大小写不一致的引用。
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/types"
+        ],
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ]
+    },
+    "include": [
+        "src/*.ts",
+        "src/**/*.ts",
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts",
+        "**/node_modules/*"
+    ]
+}
