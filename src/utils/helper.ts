@@ -1,6 +1,6 @@
 import path = require('path')
 import fs = require('fs-extra')
-import JSONbig from 'json-bigint'
+import JSONbig = require('json-bigint')
 /**
  * 递归解析json文本
  *
@@ -20,9 +20,9 @@ export function jsonDeepParse(obj: any) {
             if (typeof obj[keys[i]] === 'string') { // 如果是string就尝试解析
                 try {
                     // 如果为对象或数组
-                    if (obj[keys[i]].startsWith('{') || obj[keys[i]].startsWith('[')) {
-                        obj[keys[i]] = JSONbig.parse(obj[keys[i]])
-                    }
+                    // if (obj[keys[i]].startsWith('{') || obj[keys[i]].startsWith('[')) {
+                    obj[keys[i]] = JSONbig.parse(obj[keys[i]])
+                    // }
                 } catch (error) {
 
                 }
