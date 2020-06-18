@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.1...v1.1.2) (2020-06-18)
+
+
+### 🐛 Bug 修复
+
+* 新增延时环境变量 ([ccb8c6e](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/ccb8c6e))
+
 ## [1.1.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.0...v1.1.1) (2020-06-18)
 
 
