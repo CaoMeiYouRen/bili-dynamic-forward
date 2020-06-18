@@ -21,6 +21,9 @@ export async function getBiliDynamic(uid: number) {
         Referer: `https://space.bilibili.com/${uid}/`,
     })
     const cards: CardItem[] = jsonDeepParse(result?.data?.data?.cards)
+    if (!cards) {
+        return
+    }
     const uname = cards[0]?.desc?.user_profile?.info?.uname || ''
     return new RssChannel({
         title: `${uname} 的 bilibili 动态`,

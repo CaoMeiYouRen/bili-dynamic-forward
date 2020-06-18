@@ -1,7 +1,8 @@
 import { Subscribe, CQLog } from '@/models'
-import { getNotPushDynamic, biliDynamicFormat, SUBSCRIBE_LIST, saveSubscribeList } from '@/services'
+import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
 import { IS_DEBUG } from '@/config'
+import { SUBSCRIBE_LIST } from '@/db'
 
 /**
  * 向订阅者推送最新动态
@@ -33,10 +34,10 @@ export async function pushDynamic(list: Subscribe[]) {
                 list[i].lastDynamic = Date.now()
                 await saveSubscribeList(list)
             }
-        } else if (IS_DEBUG) {
+        } else {
             printTime(`当前用户 ${sub.userName} 没有新动态`, CQLog.LOG_DEBUG)
         }
-        await sleep(200)
+        await sleep(500)
     }
     return true
 }

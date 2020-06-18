@@ -1,6 +1,7 @@
+import _ = require('lodash')
 import { globalCache } from '@/db'
 import { ajax, ajax2 } from '@/utils'
-import { FollowingResult, Following, Subscribe } from '@/models'
+import { FollowingResult, Following, Subscribe, Vtuber } from '@/models'
 /**
  * 取用户名
  *
@@ -123,3 +124,4 @@ export async function getFollowingNumber(uid: number): Promise<number> {
     })
     return result.data?.data?.following || 0
 }
+

@@ -1,6 +1,6 @@
 import { CQMessage, SubscribeType, SubscribeError } from '@/models'
 import { sendMsg, isGroupAdmin, getNumber } from '@/utils'
-import { querySubscribe, subscribeUp, transferSubscribeUp, unsubscribeUp, unsubscribeAllUp } from './subscribe'
+import { querySubscribe, subscribeUp, transferSubscribeUp, unsubscribeUp, unsubscribeAllUp, oneClickDD } from './subscribe'
 import { getAllFollowings, getUsernameFromUID } from './helper'
 
 /**
@@ -19,7 +19,7 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
     }
     let text = ''
     if (/^bili订阅(主菜单|指令)$/i.test(msg)) {
-        text = 'bili订阅主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [tagid]'
+        text = 'bili订阅主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]'
         return sendMsg(text, user_id, group_id)
     }
     let sub_id = user_id
@@ -29,12 +29,21 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
         sub_type = SubscribeType.group
     }
     if (/^bili订阅列表$/i.test(msg)) {
+        if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+            text = '非常抱歉，订阅列表仅管理员可查询！'
+            return sendMsg(text, user_id, group_id)
+        }
         const subscribes = (await querySubscribe(sub_id, sub_type))
         if (subscribes.length === 0) {
             text = '非常抱歉，未查询到您的订阅。发送 bili订阅 + uid 即可订阅up主动态'
             return sendMsg(text, user_id, group_id)
         }
-        text = `您当前关注的up主如下\n${subscribes.map((e, i) => {
+        if (group_id) {
+            text = '本群当前关注的up主如下\n'
+        } else {
+            text = '您当前关注的up主如下\n'
+        }
+        text += `${subscribes.map((e, i) => {
             return `${i + 1}.${e.userName}(uid: ${e.userId})`
         }).join('\n')}`
         return sendMsg(text, user_id, group_id)
@@ -135,6 +144,27 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
             console.error(error)
         }
         text = '非常抱歉，取消全部订阅失败！'
+        return sendMsg(text, user_id, group_id)
+    }
+    // bili一键dd ；bili一键dd 100
+    if (/^bili一键dd/i.test(msg)) {
+        const limit = getNumber(msg) || 20
+        if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+            text = '非常抱歉，群一键dd仅管理员可用！'
+            return sendMsg(text, user_id, group_id)
+        }
+        try {
+            const n = await oneClickDD(sub_id, sub_type, limit)
+            text = `一键dd成功！共 dd ${n} 个 vup/vtuber(重复订阅会自动剔除)`
+            return sendMsg(text, user_id, group_id)
+        } catch (error) {
+            if (error instanceof SubscribeError) {
+                text = error.message
+                return sendMsg(text, user_id, group_id)
+            }
+            console.error(error)
+        }
+        text = '非常抱歉，一键dd失败！'
         return sendMsg(text, user_id, group_id)
     }
     return 0

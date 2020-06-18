@@ -7,5 +7,6 @@ export * from './Subscribe'
 export * from './SubscribeError'
 export * from './Following'
 export * from './MemberInfo'
+export * from './Vtuber'
 
 

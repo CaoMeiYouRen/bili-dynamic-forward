@@ -2,10 +2,9 @@ import fs = require('fs-extra')
 import _ from 'lodash'
 import { Subscribe, Subscriber, SubscribeError, SubscribeType } from '@/models'
 import { getUsernameFromUID, getAllFollowings } from './helper'
-import { globalCache } from '@/db'
+import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
-
-export const SUBSCRIBE_LIST: Subscribe[] = []
+import { getVupAndVtuberList } from './dd'
 
 getSubscribeList().then(async list => {
     list = _.uniq(list)
@@ -167,6 +166,30 @@ export async function unsubscribeAllUp(subId: number, subType: string) {
     }
     return true
 }
+
+/**
+ * 一键DD
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-06-18
+ * @export
+ * @param {number} subId
+ * @param {string} subType
+ * @param {number} [limit=20]
+ * @returns
+ */
+export async function oneClickDD(subId: number, subType: string, limit: number = 20) {
+    const vups = await getVupAndVtuberList(limit)
+    for (let i = 0; i < vups.length; i++) {
+        const e = vups[i]
+        try {
+            await subscribeUp(e.mid, subId, subType, e.name)
+        } catch (error) {
+        }
+    }
+    return vups.length
+}
+
 /**
  * 查询用户订阅情况
  *
@@ -195,6 +218,9 @@ export async function querySubscribe(subId: number, subType: string) {
  */
 export async function getNotPushDynamic(userId: number, lastDynamic: number) {
     const channel = await getBiliDynamic(userId)
+    if (!channel) {
+        return []
+    }
     return channel?.item.filter(e => {
         if (!e.pubDate) {
             return false
@@ -202,22 +228,3 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number) {
         return new Date(e.pubDate).getTime() > lastDynamic
     }).reverse()
 }
-// setTimeout(async () => {
-//     try {
-//         let e = await subscribeUp(2, 996881204, SubscribeType.personal)
-//         console.log(e)
-//     } catch (error) {
-//         if (error instanceof SubscribeError) {
-//             console.log(error.message)
-//         }
-//     }
-//     // try {
-//     //     let e = await unsubscribeUp(2, 996881204, SubscribeType.personal)
-//     //     console.log(e)
-//     // } catch (error) {
-//     //     if (error instanceof SubscribeError) {
-//     //         console.log(error.message)
-//     //     }
-//     // }
-
-// }, 2000)
