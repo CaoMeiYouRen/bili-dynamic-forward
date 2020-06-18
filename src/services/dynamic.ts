@@ -119,7 +119,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     }
     text += `动态链接：${dynamic.link}\n`
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
-    return text
+    return text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
 }
 
 // (async () => {
