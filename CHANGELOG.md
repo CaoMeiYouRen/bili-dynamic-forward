@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.0...v1.1.1) (2020-06-18)
+
+
+### 🐛 Bug 修复
+
+* 移除多余空行 ([b572091](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/b572091))
+
 # [1.1.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.0.1...v1.1.0) (2020-06-18)
 
 
