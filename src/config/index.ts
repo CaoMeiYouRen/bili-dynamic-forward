@@ -35,7 +35,7 @@ if (IS_DEBUG) {
 }
 
 export const CACHE = {
-    CACHE_AGE: Number(env.CACHE_AGE || 300),
+    CACHE_AGE: Number(env.CACHE_AGE || 3600),
     CACHE_MAX: Number(env.CACHE_MAX || Infinity),
 }
 
