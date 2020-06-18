@@ -29,7 +29,7 @@ export async function getBiliDynamic(uid: number) {
         title: `${uname} 的 bilibili 动态`,
         link: `https://space.bilibili.com/${uid}/#/dynamic`,
         description: `${uname} 的 bilibili 动态`,
-        item: cards && cards.map((item) => {
+        item: cards.map((item) => {
             const card = item.card
             const data = card.item || card
             const origin = card.origin
@@ -72,9 +72,10 @@ export async function getBiliDynamic(uid: number) {
             }
             // link
             let link = ''
-            if (data.dynamic_id) {
-            } else if (item?.desc?.dynamic_id) {
-                link = `https://t.bilibili.com/${item.desc.dynamic_id}`
+            if (data.dynamic_id_str) {
+                link = `https://t.bilibili.com/${data.dynamic_id_str}`
+            } else if (item?.desc?.dynamic_id_str) {
+                link = `https://t.bilibili.com/${item.desc.dynamic_id_str}`
             }
             const getTitle = (data) => data.title || data.sketch?.title || '' // || data.description || data.content || data?.vest?.content || ''
             const getDes = (data) => data.desc || data.description || data.content || data.summary || (data?.vest?.content) + (data.sketch && `\n${data.sketch.desc_text}`) || data.intro || ''

@@ -1,6 +1,6 @@
 import path = require('path')
 import fs = require('fs-extra')
-import JSON5 from 'json5'
+import JSONbig from 'json-bigint'
 /**
  * 递归解析json文本
  *
@@ -19,7 +19,10 @@ export function jsonDeepParse(obj: any) {
         for (let i = 0; i < keys.length; i++) {
             if (typeof obj[keys[i]] === 'string') { // 如果是string就尝试解析
                 try {
-                    obj[keys[i]] = JSON.parse(obj[keys[i]])
+                    // 如果为对象或数组
+                    if (obj[keys[i]].startsWith('{') || obj[keys[i]].startsWith('[')) {
+                        obj[keys[i]] = JSONbig.parse(obj[keys[i]])
+                    }
                 } catch (error) {
 
                 }
@@ -52,6 +55,18 @@ export function getNumber(text: string): number {
     }
     return 0
 }
+/**
+ * 是否为数字
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-06-18
+ * @export
+ * @param {string} text
+ */
+export function isNumber(text: string) {
+    return /^\d+$/.test(text)
+}
+
 /**
  * 延时一段时间
  *
