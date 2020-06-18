@@ -1,9 +1,10 @@
-import fs = require('fs-extra')
 /* eslint-disable no-shadow */
-
+import fs = require('fs-extra')
 import { ajax } from '@/utils/ajax'
-import { jsonDeepParse } from '@/utils'
+import { jsonDeepParse, timeFormat, sendPrivateMsg } from '@/utils'
 import { RssChannel, RssItem } from '@/models'
+import { CQImage } from 'cq-websocket'
+import { getUsernameFromUID } from './helper'
 
 class CardItem {
     desc: any
@@ -20,11 +21,12 @@ export async function getBiliDynamic(uid: number) {
         Referer: `https://space.bilibili.com/${uid}/`,
     })
     const cards: CardItem[] = jsonDeepParse(result?.data?.data?.cards)
+    const uname = cards[0]?.desc?.user_profile?.info?.uname || ''
     return new RssChannel({
-        title: `${cards[0].desc.user_profile.info.uname} 的 bilibili 动态`,
+        title: `${uname} 的 bilibili 动态`,
         link: `https://space.bilibili.com/${uid}/#/dynamic`,
-        description: `${cards[0].desc.user_profile.info.uname} 的 bilibili 动态`,
-        item: cards.map((item) => {
+        description: `${uname} 的 bilibili 动态`,
+        item: cards && cards.map((item) => {
             const card = item.card
             const data = card.item || card
             const origin = card.origin
@@ -88,18 +90,40 @@ export async function getBiliDynamic(uid: number) {
             }
             const getOriginName = (data) => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || ''
             const getOriginTitle = (data) => (data?.title ? `${data.title}\n` : '')
+            const getVideo = (data) => data?.aid ? `\n视频地址：https://www.bilibili.com/video/av${data?.aid}` : ''
             return new RssItem({
                 title: getTitle(data),
                 link,
                 description: `${getDes(data)}${
-                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}`,
+                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getVideo(data)}${getVideo(origin)}`,
                 images,
                 pubDate: new Date(item.desc.timestamp * 1000),
             })
         }),
     })
 }
-// getBiliDynamic(10822025).then(res => {
-//     // console.log(res)
-//     fs.writeFileSync('public/10822025.json', JSON.stringify(res, null, 4))
-// })
+
+export function biliDynamicFormat(userName: string, dynamic: RssItem) {
+    let text = `检测到您关注的B站用户 ${userName} 发布了新的动态\n`
+    if (dynamic.title) {
+        text += `${dynamic.title}\n`
+    }
+    text += `${dynamic.description}\n`
+    if (dynamic.images?.length) {
+        text += `${dynamic.images?.map(e => {
+            return new CQImage(e).toString()
+        }).join('')}\n`
+    }
+    text += `动态链接：${dynamic.link}\n`
+    text += `发布时间：${timeFormat(dynamic.pubDate)}`
+    return text
+}
+
+// (async () => {
+//     setTimeout(async () => {
+//         const result = await getBiliDynamic(2)
+//         const username = await getUsernameFromUID(2)
+//         let text = biliDynamicFormat(username, result?.item[0])
+//         await sendPrivateMsg(996881204, text)
+//     }, 3000)
+// })()

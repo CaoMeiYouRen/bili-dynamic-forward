@@ -17,11 +17,14 @@ export async function getUsernameFromUID(uid: number) {
     const key = `bili-username-from-uid-${uid}`
     let name: string = (await globalCache.get(key)) || ''
     if (!name) {
-        const result = await ajax('https://space.bilibili.com/ajax/member/GetInfo', {}, {
-            mid: uid,
-        }, 'POST', {
-            Referer: `https://space.bilibili.com/${uid}/`,
-            'Content-Type': 'application/x-www-form-urlencoded',
+        const result = await ajax2({
+            url: 'https://space.bilibili.com/ajax/member/GetInfo',
+            data: { mid: uid },
+            method: 'POST',
+            headers: {
+                Referer: `https://space.bilibili.com/${uid}/`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
         })
         // console.log(result.data)
         if (result.data?.status) {
@@ -95,7 +98,7 @@ export async function getFollowings(uid: number, pn: number, tag?: number) {
         if (!tag) {
             return true
         }
-        return e.tag.includes(tag)
+        return e?.tag?.includes(tag)
     })
 }
 

@@ -74,10 +74,10 @@ export function getCQWebSocketOption(dirname?: string): CQWebSocketOption {
  * @memberof CoolQ
  */
 export async function sendPrivateMsg(user_id: number, message: string | CQMessage | CQMessage[]): Promise<number> {
-    if (IS_DEBUG) {
-        printTime(`[发送私聊消息] QQID:${user_id} msg:${JSON.stringify(message)}`, CQLog.LOG_DEBUG)
-        return 0
-    }
+    // if (IS_DEBUG) {
+    //     printTime(`[发送私聊消息] QQID:${user_id} msg:${JSON.stringify(message)}`, CQLog.LOG_DEBUG)
+    //     return 0
+    // }
     // 返回内容格式 {"data":{"message_id":273},"retcode":0,"status":"ok"}
     try {
         const result: APIResponse<any> = await bot('send_private_msg', {

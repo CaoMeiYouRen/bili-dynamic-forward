@@ -24,12 +24,6 @@ export async function ajax(url: string, query: any = {}, data: any = {}, method:
             params: query,
             data,
             timeout: 10000,
-            transformRequest(_data) {
-                if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
-                    _data = queryString.stringify(_data)
-                }
-                return _data
-            },
         })
         return result
     } catch (error) {

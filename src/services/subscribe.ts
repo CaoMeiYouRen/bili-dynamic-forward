@@ -2,6 +2,8 @@ import fs = require('fs-extra')
 import _ from 'lodash'
 import { Subscribe, Subscriber, SubscribeError, SubscribeType } from '@/models'
 import { getUsernameFromUID, getAllFollowings } from './helper'
+import { globalCache } from '@/db'
+import { getBiliDynamic } from './dynamic'
 
 export const SUBSCRIBE_LIST: Subscribe[] = []
 
@@ -11,6 +13,9 @@ getSubscribeList().then(async list => {
         const e = list[i]
         if (!e.userName) {
             e.userName = await getUsernameFromUID(e.userId)
+        } else {
+            const key = `bili-username-from-uid-${e.userId}`
+            await globalCache.set(key, e.userName, 3600 * 24 * 7)
         }
         SUBSCRIBE_LIST.push(e)
     }
@@ -178,7 +183,25 @@ export async function querySubscribe(subId: number, subType: string) {
         })
     })
 }
-
+/**
+ * 取未被推送的动态数组
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-06-18
+ * @export
+ * @param {number} userId
+ * @param {number} lastDynamic
+ * @returns
+ */
+export async function getNotPushDynamic(userId: number, lastDynamic: number) {
+    const channel = await getBiliDynamic(userId)
+    return channel?.item.filter(e => {
+        if (!e.pubDate) {
+            return false
+        }
+        return new Date(e.pubDate).getTime() > lastDynamic
+    }).reverse()
+}
 // setTimeout(async () => {
 //     try {
 //         let e = await subscribeUp(2, 996881204, SubscribeType.personal)

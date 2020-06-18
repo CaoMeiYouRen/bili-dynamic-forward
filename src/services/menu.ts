@@ -1,6 +1,7 @@
 import { CQMessage, SubscribeType, SubscribeError } from '@/models'
 import { sendMsg, isGroupAdmin, getNumber } from '@/utils'
-import { querySubscribe, subscribeUp } from './subscribe'
+import { querySubscribe, subscribeUp, transferSubscribeUp, unsubscribeUp, unsubscribeAllUp } from './subscribe'
+import { getAllFollowings, getUsernameFromUID } from './helper'
 
 /**
  * 挂载主菜单和业务逻辑
@@ -14,7 +15,7 @@ import { querySubscribe, subscribeUp } from './subscribe'
  */
 export async function menu(msg: string, user_id: number, group_id?: number) {
     if (!(/^bili/i.test(msg))) {
-        return false
+        return 0
     }
     let text = ''
     if (/^bili订阅(主菜单|指令)$/i.test(msg)) {
@@ -33,12 +34,38 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
             text = '非常抱歉，未查询到您的订阅。发送 bili订阅 + uid 即可订阅up主动态'
             return sendMsg(text, user_id, group_id)
         }
-        text = `您当前关注的up主如下\n${subscribes.map(e => {
-            return `${e.userName}(uid: ${e.userId})`
+        text = `您当前关注的up主如下\n${subscribes.map((e, i) => {
+            return `${i + 1}.${e.userName}(uid: ${e.userId})`
         }).join('\n')}`
         return sendMsg(text, user_id, group_id)
     }
-    if (/^bili订阅/i.test(msg)) {
+    if (/^bili订阅转移 (\d+)( \d+)?$/i.test(msg)) {
+        if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+            text = '非常抱歉，群订阅转移仅管理员可用！'
+            return sendMsg(text, user_id, group_id)
+        }
+        const args = msg.split(' ')
+        if (args.length < 3) {
+            args.push('0')
+        }
+        const uid = getNumber(args[1])
+        const tag = Number(args[2])
+        if (!uid) {
+            text = '要转移的uid为空！'
+            return sendMsg(text, user_id, group_id)
+        }
+        try {
+            const n = await transferSubscribeUp(uid, user_id, sub_type, tag)
+            const user_name = await getUsernameFromUID(uid)
+            text = `转移用户 ${user_name}(uid: ${uid}) 的订阅成功！共转移 ${n} 个订阅(重复订阅会自动剔除)`
+            return sendMsg(text, user_id, group_id)
+        } catch (error) {
+            console.error(error)
+        }
+        text = '转移用户关注列表失败！'
+        return sendMsg(text, user_id, group_id)
+    }
+    if (/^bili订阅 /i.test(msg)) {
         if (group_id && !(await isGroupAdmin(group_id, user_id))) {
             text = '非常抱歉，群订阅仅管理员可用！'
             return sendMsg(text, user_id, group_id)
@@ -64,4 +91,51 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
         text = `订阅用户 ${uid} 失败！`
         return sendMsg(text, user_id, group_id)
     }
+    if (/^bili取消订阅 (\d+)$/i.test(msg)) {
+        if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+            text = '非常抱歉，群取消订阅仅管理员可用！'
+            return sendMsg(text, user_id, group_id)
+        }
+        const uid = getNumber(msg)
+        if (!uid) {
+            text = '要取消订阅的uid为空！'
+            return sendMsg(text, user_id, group_id)
+        }
+        try {
+            const sub = await unsubscribeUp(uid, sub_id, sub_type)
+            if (sub) {
+                text = `取消订阅用户 ${sub.userName}(uid: ${sub.userId}) 成功！`
+                return sendMsg(text, user_id, group_id)
+            }
+        } catch (error) {
+            if (error instanceof SubscribeError) {
+                text = error.message
+                return sendMsg(text, user_id, group_id)
+            }
+            console.error(error)
+        }
+        text = `取消订阅用户 ${uid} 失败！`
+        return sendMsg(text, user_id, group_id)
+    }
+    if (/^bili取消全部订阅$/i.test(msg)) {
+        if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+            text = '非常抱歉，群取消全部订阅仅管理员可用！'
+            return sendMsg(text, user_id, group_id)
+        }
+        try {
+            if (await unsubscribeAllUp(sub_id, sub_type)) {
+                text = '取消全部订阅成功！'
+                return sendMsg(text, user_id, group_id)
+            }
+        } catch (error) {
+            if (error instanceof SubscribeError) {
+                text = error.message
+                return sendMsg(text, user_id, group_id)
+            }
+            console.error(error)
+        }
+        text = '非常抱歉，取消全部订阅失败！'
+        return sendMsg(text, user_id, group_id)
+    }
+    return 0
 }
