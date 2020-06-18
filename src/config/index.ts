@@ -43,3 +43,12 @@ export const CACHE = {
  * 浏览器 user-agent
  */
 export const UA = env.UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+
+/**
+ * 访问B站api的延时
+ */
+export const API_SLEEP_TIME = Number(env.API_SLEEP_TIME || 1000)
+/**
+ * 发送消息的延时
+ */
+export const MSG_SLEEP_TIME = Number(env.MSG_SLEEP_TIME || 500)

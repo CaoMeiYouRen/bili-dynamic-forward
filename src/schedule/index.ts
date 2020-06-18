@@ -1,7 +1,7 @@
 import { Subscribe, CQLog } from '@/models'
 import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
-import { IS_DEBUG } from '@/config'
+import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME} from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
 
 /**
@@ -29,7 +29,7 @@ export async function pushDynamic(list: Subscribe[]) {
                     } else {
                         await sendPrivateMsg(s.subId, text)
                     }
-                    await sleep(500)
+                    await sleep(MSG_SLEEP_TIME)
                 }
                 list[i].lastDynamic = Date.now()
                 await saveSubscribeList(list)
@@ -37,7 +37,7 @@ export async function pushDynamic(list: Subscribe[]) {
         } else {
             printTime(`当前用户 ${sub.userName} 没有新动态`, CQLog.LOG_DEBUG)
         }
-        await sleep(500)
+        await sleep(API_SLEEP_TIME)
     }
     return true
 }
