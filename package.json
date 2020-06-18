@@ -1,6 +1,6 @@
 {
   "name": "bili-dynamic-forward",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "CaoMeiYouRen",
   "description": "B站动态转发机器人",
   "main": "dist/index.js",
