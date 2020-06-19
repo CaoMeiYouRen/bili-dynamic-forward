@@ -220,6 +220,7 @@ bili一键dd 50
 ```
 一键dd成功！共 dd 50 个 vup/vtuber(重复订阅会自动剔除)
 ```
+<<<<<<< HEAD
 
 ## 关于
 
@@ -249,3 +250,5 @@ bili一键dd 50
 Copyright © 2020 [CaoMeiYouRen](https://github.com/CaoMeiYouRen).<br />
 This project is [MIT](https://github.com/CaoMeiYouRen/bili-dynamic-forward/blob/master/LICENSE) licensed.
 
+=======
+>>>>>>> 302e46184e282da5aad0f1bcf6c3a82f5c05f7d3
