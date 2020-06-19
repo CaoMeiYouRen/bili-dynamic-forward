@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.5...v1.1.6) (2020-06-19)
+
+
+### 🐛 Bug 修复
+
+* 修改主菜单指令 ([64b8525](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/64b8525))
+
 ## [1.1.5](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.4...v1.1.5) (2020-06-18)
 
 
