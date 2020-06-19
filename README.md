@@ -2,7 +2,7 @@
 
 >   草梅B站动态转发
 
-转发B站动态到QQ，基于[coolq-http-ap](https://github.com/richardchien/coolq-http-api)、[cq-websocket](https://github.com/momocow/node-cq-websocket)。通过轮询B站的 api 来推送最新动态
+转发B站动态到QQ，基于[coolq-http-api](https://github.com/richardchien/coolq-http-api)、[cq-websocket](https://github.com/momocow/node-cq-websocket)。通过轮询B站的 api 来推送最新动态
 
 ## 运行环境
 
@@ -11,7 +11,7 @@
 
 ## 安装
 
-从 [releases](https://github.com/CaoMeiYouRen/bili-dynamic-forward/releases) 下载 index.js 文件即可运行（需要Node.js环境）
+从 [releases](https://github.com/CaoMeiYouRen/bili-dynamic-forward/releases) 下载 index.js 文件即可运行
 
 ### 配置
 
@@ -88,12 +88,16 @@ port:  酷Q服务器端口。该项请与 `coolq-http-api` 的`ws_port` 字段�
 
 以下所有指令均支持群聊和私聊，其中群聊仅管理员可用。
 
-### bili订阅主菜单
+>   tips: up主的uid怎么看：点击up主个人空间后，链接中最后那一串数字就是
+>
+>   例如：https://space.bilibili.com/10822025 ，则uid为 10822025 
+
+### bili主菜单
 
 回复例子：
 
 ```
-bili订阅主菜单
+bili主菜单
 bili订阅列表
 bili订阅 [uid]
 bili取消订阅 [uid]
@@ -109,7 +113,7 @@ bili一键dd [?num]
 回复例子：
 
 ```
-s您当前关注的up主如下
+您当前关注的up主如下
 1.罗翔说刑法(uid: 517327498)
 2.波流音(uid: 2587393)
 3.硬核的半佛仙人(uid: 37663924)
@@ -161,7 +165,7 @@ bili取消订阅 14110780
 
 ### bili订阅转移 [uid] [?tagid]
 
-转移来自某个用户的关注。由于api限制，仅最大转移最近关注的250位up
+转移来自某个用户的关注。由于api限制，最多转移最近关注的250位up
 
 tagid可选，如果不填则为全部（250个）。tagid指关注的分组id，例如`https://space.bilibili.com/10822025/fans/follow?tagid=241052`
 
@@ -191,7 +195,7 @@ bili订阅转移 10822025 241052
 
 ### bili一键dd [?num]
 
-一键dd vup/vtuber。名单来自 https://vtuber.magictea.cc/rank。默认取前20位。【排除了几位我觉得不算vup/vtuber的up主，如有需要可用手动关注】
+一键dd vup/vtuber。名单来自 [https://vtuber.magictea.cc/rank ](https://vtuber.magictea.cc/rank) 。默认取前20位。【排除了几位我觉得不算vup/vtuber的up主，如有需要可以手动关注。[排除名单](https://github.com/CaoMeiYouRen/bili-dynamic-forward/blob/master/src/db/vupBanList.ts)】
 
 发送例子1：
 
@@ -216,3 +220,32 @@ bili一键dd 50
 ```
 一键dd成功！共 dd 50 个 vup/vtuber(重复订阅会自动剔除)
 ```
+
+## 关于
+
+-   为什么会有这个项目
+    -   我注意到大部分up主都是有粉丝群的，而很多时候up主在b站的动态不能及时反馈到粉丝群，如果没人搬运可能会漏掉。在还有就是如果一个up主有很多粉丝群，通知个遍也很麻烦（虽然有群管来帮忙，但手动还是有些麻烦啊）
+    -   我个人虽然很喜欢刷B站，但是B站毕竟不能在桌面端推送动态，也不能推送到群。因此出现了这个项目。
+-   为什么基于 node.js 开发
+    -   原因在于B站动态的狗屎api接口。使用其他语言对于解析接口会相当麻烦。易语言就更别提了
+    -   因此需要基于 `coolq-http-api` 来开发。
+
+## 作者
+
+
+👤 **CaoMeiYouRen**
+
+* Website: [https://blog.cmyr.ltd](https://blog.cmyr.ltd)
+* GitHub: [@CaoMeiYouRen](https://github.com/CaoMeiYouRen)
+
+
+## 支持
+
+如果觉得这个项目有用的话请给一颗⭐️，非常感谢
+
+
+## 📝 License
+
+Copyright © 2020 [CaoMeiYouRen](https://github.com/CaoMeiYouRen).<br />
+This project is [MIT](https://github.com/CaoMeiYouRen/bili-dynamic-forward/blob/master/LICENSE) licensed.
+

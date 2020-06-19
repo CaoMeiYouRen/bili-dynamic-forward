@@ -18,8 +18,8 @@ export async function menu(msg: string, user_id: number, group_id?: number) {
         return 0
     }
     let text = ''
-    if (/^bili订阅(主菜单|指令)$/i.test(msg)) {
-        text = 'bili订阅主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]'
+    if (/^bili(订阅)?(主菜单|指令)$/i.test(msg)) {
+        text = 'bili主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]'
         return sendMsg(text, user_id, group_id)
     }
     let sub_id = user_id
