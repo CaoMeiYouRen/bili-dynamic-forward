@@ -48,7 +48,9 @@ port:  酷Q服务器端口。该项请与 `coolq-http-api` 的`ws_port` 字段�
 
 更多属性请参考 [CQ HTTP API 配置项](https://cqhttp.cc/docs/#/Configuration) 。
 
-另附 `coolq-http-api`配置参考。
+ `coolq-http-api` 的配置请放在 `酷Q\data\app\io.github.richardchien.coolqhttpapi\config\general.json`下
+
+`general.json`文件的配置参考如下：
 
 ```json
 {
@@ -220,6 +222,21 @@ bili一键dd 50
 ```
 一键dd成功！共 dd 50 个 vup/vtuber(重复订阅会自动剔除)
 ```
+## 使用效果
+
+视频动态
+
+![mark](http://cdn.cmyr.ltd/blog/20200619/2agLuK1ajJID.png?imageslim)
+
+专栏动态
+
+![mark](http://cdn.cmyr.ltd/blog/20200619/hYqxiGqMn8rY.png?imageslim)
+
+图文动态
+
+![mark](http://cdn.cmyr.ltd/blog/20200619/iReSfxXJkWOS.png?imageslim)
+
+更多动态类型可自行体验
 
 ## 关于
 
@@ -228,7 +245,10 @@ bili一键dd 50
     -   我个人虽然很喜欢刷B站，但是B站毕竟不能在桌面端推送动态，也不能推送到群。因此出现了这个项目。
 -   为什么基于 node.js 开发
     -   原因在于B站动态的狗屎api接口。使用其他语言对于解析接口会相当麻烦。易语言就更别提了
-    -   因此需要基于 `coolq-http-api` 来开发。
+    -   本人的技术栈主要为 node.js
+-   为什么绕了一圈还是要基于  `coolq-http-api`  开发
+    -   没错，这个插件本身并不执行业务逻辑，业务逻辑是js脚本跑起来的。再通过websocket与 `coolq-http-api` 通信来调用酷Q的api。有点类似于原地tp的感觉
+    -   我开发这个项目的原因还是一次技术试验，试验Node.js与酷Q插件结合的可能性。
 
 ## 作者
 
