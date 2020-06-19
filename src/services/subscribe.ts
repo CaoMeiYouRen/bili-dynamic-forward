@@ -210,13 +210,14 @@ export async function querySubscribe(subId: number, subType: string) {
  * 取未被推送的动态数组
  *
  * @author CaoMeiYouRen
- * @date 2020-06-18
+ * @date 2020-06-19
  * @export
  * @param {number} userId
  * @param {number} lastDynamic
+ * @param {number} [limit=3]
  * @returns
  */
-export async function getNotPushDynamic(userId: number, lastDynamic: number) {
+export async function getNotPushDynamic(userId: number, lastDynamic: number, limit: number = 3) {
     const channel = await getBiliDynamic(userId)
     if (!channel) {
         return []
@@ -226,5 +227,5 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number) {
             return false
         }
         return new Date(e.pubDate).getTime() > lastDynamic
-    }).reverse()
+    }).reverse().slice(3)
 }
