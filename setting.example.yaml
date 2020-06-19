@@ -1,4 +1,4 @@
-accessToken: "CMYR" # API 访问 token 。见 CQHTTP API 之配置文件说明
+accessToken: "" # API 访问 token 。见 CQHTTP API 之配置文件说明
 enableAPI: true # 启用 /api 连线
 enableEvent: true # 启用 /event 连线
 protocol: "ws:" # 协议名

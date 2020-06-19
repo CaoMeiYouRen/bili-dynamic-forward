@@ -1,5 +1,5 @@
 {
-    "accessToken": "CMYR",
+    "accessToken": "",
     "enableAPI": true,
     "enableEvent": true,
     "protocol": "ws:",
