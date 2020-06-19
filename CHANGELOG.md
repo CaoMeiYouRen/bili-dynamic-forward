@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.6...v1.1.7) (2020-06-19)
+
+
+### 🐛 Bug 修复
+
+* 优化动态数量限制 ([42242a1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/42242a1))
+
 ## [1.1.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.5...v1.1.6) (2020-06-19)
 
 
