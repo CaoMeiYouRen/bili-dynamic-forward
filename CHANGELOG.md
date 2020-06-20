@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.8](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.7...v1.1.8) (2020-06-20)
+
+
+### 🐛 Bug 修复
+
+* 修复 专栏、音频等缺少跳转链接的bug ([a19aeb3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/a19aeb3))
+
 ## [1.1.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.6...v1.1.7) (2020-06-19)
 
 
