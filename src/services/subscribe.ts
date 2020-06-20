@@ -227,5 +227,5 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
             return false
         }
         return new Date(e.pubDate).getTime() > lastDynamic
-    }).reverse().slice(3)
+    }).reverse().slice(0, limit)
 }
