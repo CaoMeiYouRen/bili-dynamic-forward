@@ -94,12 +94,36 @@ export async function getBiliDynamic(uid: number) {
             }
             const getOriginName = (data) => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || ''
             const getOriginTitle = (data) => (data?.title ? `${data.title}\n` : '')
-            const getVideo = (data) => data?.aid ? `\n视频地址：https://www.bilibili.com/video/av${data?.aid}` : ''
+            const getUrl = (data) => {
+                if (!data) {
+                    return ''
+                }
+                const type: number = item?.desc?.type
+                if (data.aid) {
+                    return `\n视频地址：https://www.bilibili.com/video/av${data?.aid}`
+                }
+                if (data.image_urls) {
+                    return `\n专栏地址：https://www.bilibili.com/read/cv${data?.id}`
+                }
+                if (data.upper) {
+                    return `\n音频地址：https://www.bilibili.com/audio/au${data?.id}`
+                }
+                if (data.roomid) {
+                    return `\n直播间地址：https://live.bilibili.com/${data?.roomid}`
+                }
+                if (data.sketch) {
+                    return `\n活动地址：${data?.sketch?.target_url}`
+                }
+                if (data.apiSeasonInfo) {
+                    return `\n地址：${data?.url}`
+                }
+                return ''
+            }
             return new RssItem({
                 title: getTitle(data),
                 link,
                 description: `${getDes(data)}${
-                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getVideo(data)}${getVideo(origin)}`,
+                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
                 images,
                 pubDate: new Date(item.desc.timestamp * 1000),
             })
@@ -131,3 +155,68 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
 //         await sendPrivateMsg(996881204, text)
 //     }, 3000)
 // })()
+
+/**
+    @by CaoMeiYouRen 2020-05-05 添加注释
+    注意1：以下均以card为根对象
+    注意2：直接动态没有origin，转发动态有origin
+    注意3：转发动态格式统一为：
+        - user.uname: 用户名
+        - item.content: 正文
+        - item.tips: 原动态结果(例如：源动态已被作者删除、图文资源已失效)
+        - origin: 与原动态一致
+    注意4：本总结并不保证完善，而且未来B站可能会修改接口，因此仅供参考
+
+    B站的动态种类繁多，大致可以总结为以下几种：
+    desc.type
+
+    转发：type = 1
+
+    - 文字动态 type = 4
+        - user.uname: 用户名
+        - item.content: 正文
+    - 图文动态 type = 2
+        - user.name: 用户名
+        - item.title: 标题
+        - item.description: 简介
+        - item.pictures: { img_src: String }[] 图片数组，图片地址在每项的 img_src 中
+    - 视频动态 type = 8
+        - aid: av号（以card为根对象没有bv号）
+        - owner.name :用户名
+        - pic: 封面
+        - title: 视频标题
+        - desc: 视频简介
+    - 专栏动态 type = 64
+        - author.name: 用户名
+        - image_urls: String[] 封面数组
+        - id: cv号
+        - title: 标题
+        - summary: 简介
+    - 音频动态 type = 256
+        - id: auId 音频id
+        - upper: 上传的用户名称
+        - title: 音频标题
+        - author: 音频作者
+        - cover: 音频封面
+    - 投票动态
+        - user.uname: 用户名
+        - item.content: 正文
+    - 活动专题页 type = 2048
+        - user.uname 用户名
+        - vest.content 正文
+        - sketch.title 活动标题
+        - sketch.desc_text 活动简介
+        - sketch.cover_url 活动封面
+        - sketch.target_url 活动地址
+    - 番剧/电视剧/电影等专题页
+        - cover 单集封面
+        - index_title 单集标题
+        - url 视频地址
+        - apiSeasonInfo.title 番剧名称
+        - apiSeasonInfo.cover 番剧封面
+    - 直播间动态
+        - roomid 直播间id
+        - uname 用户名
+        - title 直播间标题
+        - cover 直播间封面
+*/
