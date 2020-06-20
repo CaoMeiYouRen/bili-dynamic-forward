@@ -139,8 +139,8 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     text += `${dynamic.description}\n`
     if (dynamic.images?.length) {
         text += `${dynamic.images?.map(e => {
-            if (!e.includes('@')){ // 开启图片压缩
-                e += '@1000w_1e_1c.png'
+            if (!e.includes('@')) { // 开启图片压缩
+                e += '@750w_1e_1c.png'
             }
             return new CQImage(e).toString()
         }).join('')}\n`
