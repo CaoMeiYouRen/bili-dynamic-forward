@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.2.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.12...v1.2.0) (2020-06-21)
+
+
+### ✨ 新功能
+
+* 使用 中间件模型 优化了代码结构。现在看起来更加合理的 ([2a1072e](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/2a1072e))
+
 ## [1.1.12](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.11...v1.1.12) (2020-06-21)
 
 
