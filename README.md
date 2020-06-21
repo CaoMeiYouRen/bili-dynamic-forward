@@ -11,7 +11,9 @@
 
 ## 安装
 
-从 [releases](https://github.com/CaoMeiYouRen/bili-dynamic-forward/releases) 下载 index.js 文件即可运行
+从 [releases](https://github.com/CaoMeiYouRen/bili-dynamic-forward/releases) 下载 index.js 文件即可运行。
+
+本项目采用 webpack 打包，因此无需额外安装 node_modules 即可运行。
 
 ### 配置
 
