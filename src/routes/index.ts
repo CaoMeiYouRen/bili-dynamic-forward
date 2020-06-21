@@ -1,7 +1,7 @@
 import { CQApp } from '@/interfaces'
 import { SubscribeType, CQError } from '@/models'
 import { isGroupAdmin, getNumber } from '@/utils'
-import { querySubscribe, transferSubscribeUp, getUsernameFromUID, unsubscribeUp, unsubscribeAllUp, oneClickDD } from '@/services'
+import { querySubscribe, transferSubscribeUp, getUsernameFromUID, unsubscribeUp, unsubscribeAllUp, oneClickDD, subscribeUp } from '@/services'
 
 const app = new CQApp('bili')
 
@@ -36,7 +36,7 @@ app.use(/^订阅列表$/i, async (bot, ctx) => {
     return text
 })
 
-app.use(/^bili订阅转移 (\d+)( \d+)?$/i, async (bot, ctx) => {
+app.use(/^订阅转移 (\d+)( \d+)?$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     const args = message.split(' ')
     if (args.length < 3) {
@@ -60,7 +60,20 @@ app.use(/^bili订阅转移 (\d+)( \d+)?$/i, async (bot, ctx) => {
     return '转移用户关注列表失败！'
 })
 
-app.use(/^bili取消订阅 (\d+)$/i, async (bot, ctx) => {
+app.use(/^订阅 (\d+)$/i, async (bot, ctx) => {
+    const { user_id, group_id, sub_id, sub_type, message } = ctx
+    const uid = getNumber(message)
+    if (!uid) {
+        return '要订阅的uid为空！'
+    }
+    const sub = await subscribeUp(uid, sub_id, sub_type)
+    if (sub) {
+        return `订阅用户 ${sub.userName}(uid: ${sub.userId}) 成功！`
+    }
+    return `订阅用户 ${uid} 失败！`
+})
+
+app.use(/^取消订阅 (\d+)$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     const uid = getNumber(message)
     if (!uid) {
@@ -73,14 +86,7 @@ app.use(/^bili取消订阅 (\d+)$/i, async (bot, ctx) => {
     return `取消订阅用户 ${uid} 失败！`
 })
 
-app.use(/^bili取消订阅 (\d+)$/i, async (bot, ctx) => {
-    const { user_id, group_id, sub_id, sub_type, message } = ctx
-    if (await unsubscribeAllUp(sub_id, sub_type)) {
-        return '取消全部订阅成功！'
-    }
-    return '非常抱歉，取消全部订阅失败！'
-})
-app.use(/^bili取消全部订阅$/i, async (bot, ctx) => {
+app.use(/^取消全部订阅$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     if (await unsubscribeAllUp(sub_id, sub_type)) {
         return '取消全部订阅成功！'
@@ -88,7 +94,7 @@ app.use(/^bili取消全部订阅$/i, async (bot, ctx) => {
     return '非常抱歉，取消全部订阅失败！'
 })
 
-app.use(/^bili一键dd( \d+)?$/i, async (bot, ctx) => {
+app.use(/^一键dd( \d+)?$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     try {
         const limit = getNumber(message) || 20

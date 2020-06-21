@@ -1,5 +1,6 @@
 import { CQWebSocket, MessageListenerReturn } from 'cq-websocket'
-import { CQError } from '@/models'
+import { CQError, CQLog } from '@/models'
+import { printTime } from '@/utils'
 /**
  * 如果返回值为真，则后续的都不再响应。如果返回值为假，则会继续向下匹配
  */
@@ -63,12 +64,18 @@ export class CQApp {
                             result = await result
                         }
                         if (result) {
+                            if (ctx.group_id) {
+                                printTime(`[发送群消息] 群号:${ctx.group_id} msg:${JSON.stringify(message)}`, CQLog.LOG_INFO_SEND)
+                            } else {
+                                printTime(`[发送私聊消息] QQID:${ctx.user_id} msg:${JSON.stringify(message)}`, CQLog.LOG_INFO_SEND)
+                            }
                             return result
                         }
                     }
                 }
             } catch (error) {
                 if (error instanceof CQError) {
+                    printTime(error.message, CQLog.LOG_ERROR)
                     return error.message
                 }
                 console.error(error)
