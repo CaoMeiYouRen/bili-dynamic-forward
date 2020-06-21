@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.1.12](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.11...v1.1.12) (2020-06-21)
+
+
+### 🐛 Bug 修复
+
+* 优化压缩参数，避免图片过大 ([83ab829](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/83ab829))
+
 ## [1.1.11](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.1.10...v1.1.11) (2020-06-20)
 
 
