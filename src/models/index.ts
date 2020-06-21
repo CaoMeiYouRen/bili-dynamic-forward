@@ -1,3 +1,4 @@
+export * from './CQError'
 export * from './CQLog'
 export * from './CQMessage'
 export * from './HttpError'

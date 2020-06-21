@@ -132,7 +132,7 @@ export async function getBiliDynamic(uid: number) {
 }
 
 export function biliDynamicFormat(userName: string, dynamic: RssItem) {
-    let text = `检测到您关注的B站用户 ${userName} 发布了新的动态\n`
+    let text = `检测到您关注的B站up主 ${userName} 发布了新的动态\n`
     if (dynamic.title) {
         text += `${dynamic.title}\n`
     }

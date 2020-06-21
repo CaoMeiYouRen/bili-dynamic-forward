@@ -2,11 +2,11 @@ import path = require('path')
 import moduleAlias from 'module-alias'
 moduleAlias.addAlias('@', path.join(__dirname, './'))
 import { CQWebSocket } from 'cq-websocket'
-import { getCQWebSocketOption, printTime, sendPrivateMsg } from './utils'
+import { getCQWebSocketOption, printTime, sendPrivateMsg, sleep } from './utils'
 import { CQLog } from './models'
-import { menu } from './services'
 import './db'
 import './schedule'
+import { app } from './routes'
 export const bot = new CQWebSocket(getCQWebSocketOption())
 
 bot.on('socket.connecting', (socketType, attempts) => {
@@ -27,20 +27,16 @@ bot.connect()
 
 bot.on('ready', () => {
     printTime('[WebSocket] 连接成功！', CQLog.LOG_INFO)
+    app.run(bot)
 })
 
+
 bot.on('message.private', (event, ctx, tags) => {
-    printTime(`[接收私聊消息] 类型:${ctx.sub_type} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS);
-    (async () => {
-        await menu(ctx.message, ctx.user_id, 0)
-    })()
+    printTime(`[接收私聊消息] 类型:${ctx.sub_type} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS)
 })
 
 bot.on('message.group', (event, ctx, tags) => {
-    printTime(`[接收群聊消息] 类型:${ctx.sub_type} GroupId:${ctx.group_id} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS);
-    (async () => {
-        await menu(ctx.message, ctx.user_id, ctx.group_id)
-    })()
+    printTime(`[接收群聊消息] 类型:${ctx.sub_type} GroupId:${ctx.group_id} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS)
 })
 
 bot.on('meta_event.heartbeat', (ctx) => { // 响应心跳连接

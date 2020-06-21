@@ -1,6 +1,6 @@
 import fs = require('fs-extra')
 import _ from 'lodash'
-import { Subscribe, Subscriber, SubscribeError, SubscribeType } from '@/models'
+import { Subscribe, Subscriber, CQError, SubscribeError, SubscribeType } from '@/models'
 import { getUsernameFromUID, getAllFollowings } from './helper'
 import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
@@ -79,7 +79,7 @@ export async function subscribeUp(userId: number, subId: number, subType: string
     }
     let suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
     if (suber) { // 已经订阅了
-        throw new SubscribeError('该 up 已订阅，请勿重复订阅')
+        throw new CQError('该 up 已订阅，请勿重复订阅')
     }
     suber = new Subscriber({ subId, subType })
     sub.subscribers.push(suber)
@@ -124,7 +124,7 @@ export async function transferSubscribeUp(userId: number, subId: number, subType
 export async function unsubscribeUp(userId: number, subId: number, subType: string) {
     const sub = SUBSCRIBE_LIST.find((e => e.userId === userId))
     if (!sub) {
-        throw new SubscribeError('该 up 未被任何用户订阅')
+        throw new CQError('该 up 未被任何用户订阅')
     }
     const suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
     if (suber) {
@@ -135,7 +135,7 @@ export async function unsubscribeUp(userId: number, subId: number, subType: stri
         await saveSubscribeList(SUBSCRIBE_LIST)
         return sub
     }
-    throw new SubscribeError('您尚未订阅该 up')
+    throw new CQError('您尚未订阅该 up')
 }
 
 /**
@@ -154,7 +154,7 @@ export async function unsubscribeAllUp(subId: number, subType: string) {
         })
     })
     if (subs.length === 0) {
-        throw new SubscribeError('您尚未订阅任何 up')
+        throw new CQError('您尚未订阅任何 up')
     }
     for (let i = 0; i < subs.length; i++) {
         const sub = subs[i]

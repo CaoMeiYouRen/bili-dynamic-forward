@@ -13,3 +13,5 @@ export interface CQMessage {
         [key: string]: string
     }
 }
+
+export type MessageType = string | CQMessage | CQMessage[]
