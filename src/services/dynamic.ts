@@ -133,7 +133,8 @@ export async function getBiliDynamic(uid: number) {
 
 export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     let text = `检测到您关注的B站up主 ${userName} 发布了新的动态\n`
-    if (dynamic.title) {
+    // 排除简介内容和标题重复
+    if (dynamic.title && !dynamic.description.startsWith(dynamic.title)) {
         text += `${dynamic.title}\n`
     }
     text += `${dynamic.description}\n`

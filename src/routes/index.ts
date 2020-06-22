@@ -12,8 +12,8 @@ app.use(/^(订阅)?(主菜单|指令)$/i, (bot, ctx) => {
 app.use(/.*/i, async (bot, ctx) => {
     ctx.sub_id = ctx.group_id ? ctx.group_id : ctx.user_id
     ctx.sub_type = ctx.group_id ? SubscribeType.group : SubscribeType.personal
-    const { user_id, group_id } = ctx
-    if (group_id && !(await isGroupAdmin(group_id, user_id))) {
+    const { user_id, group_id, message } = ctx
+    if (/^(主菜单|订阅列表|订阅转移 |订阅 |取消订阅 |取消全部订阅|一键dd )/.test(message) && group_id && !(await isGroupAdmin(group_id, user_id))) {
         return '非常抱歉，该操作仅管理员可用！'
     }
 })
