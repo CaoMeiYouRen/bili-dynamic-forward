@@ -78,7 +78,19 @@ export async function getBiliDynamic(uid: number) {
                 link = `https://t.bilibili.com/${item.desc.dynamic_id_str}`
             }
             const getTitle = (data) => data.title || data.sketch?.title || '' // || data.description || data.content || data?.vest?.content || ''
-            const getDes = (data) => data.desc || data.description || data.content || data.summary || (data?.vest?.content) + (data.sketch && `\n${data.sketch.desc_text}`) || data.intro || ''
+            const getDes = (data) => {
+                let des = data.desc || data.description || data.content || data.summary || (data?.vest?.content) + (data.sketch && `\n${data.sketch.desc_text}`) || data.intro || ''
+                if (item?.display?.emoji_info) {
+                    const emoji = item?.display?.emoji_info?.emoji_details
+                    emoji?.forEach((e) => {
+                        des = des.replace(
+                            new RegExp(`\\${e.text}`, 'g'),
+                            new CQImage(`${e.url}@50w_1e_1c.png`).toString(),
+                        )
+                    })
+                }
+                return des
+            }
             const getOriginDes = (data) => {
                 if (!data) {
                     return ''
