@@ -56,7 +56,14 @@ export class Subscribe {
      *
      * @type {number}
      */
-    lastDynamic: number
+    lastDynamic: number = Date.now()
+
+    /**
+     * 最后一次直播的时间
+     *
+     * @type {number}
+     */
+    lastLive: number = Date.now()
     /**
      * 订阅者数组
      *

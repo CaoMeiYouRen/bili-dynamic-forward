@@ -66,6 +66,7 @@ export async function subscribeUp(userId: number, subId: number, subType: string
             userId,
             userName,
             lastDynamic: Date.now(),
+            lastLive: Date.now(),
             subscribers: [
                 {
                     subId,

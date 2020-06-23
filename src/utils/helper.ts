@@ -79,3 +79,16 @@ export function isNumber(text: string) {
 export async function sleep(time: number) {
     return new Promise(resolve => setTimeout(resolve, time))
 }
+
+/**
+ * 移除所有HTML标签。例如\<a\>123\</a\>
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-06-11
+ * @export
+ * @param {string} str
+ * @returns
+ */
+export function removeHtmlTag(str: string) {
+    return str ? str.replace(/<[^>]*>/mg, '') : str
+}

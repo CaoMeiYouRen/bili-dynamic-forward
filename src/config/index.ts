@@ -47,7 +47,7 @@ export const UA = env.UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK
 /**
  * 访问B站api的延时
  */
-export const API_SLEEP_TIME = Number(env.API_SLEEP_TIME || 1000)
+export const API_SLEEP_TIME = Number(env.API_SLEEP_TIME || 7000)
 /**
  * 发送消息的延时
  */

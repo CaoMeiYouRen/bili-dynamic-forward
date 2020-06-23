@@ -1,5 +1,5 @@
 import _ = require('lodash')
-import { globalCache } from '@/db'
+import { globalCache, filestore } from '@/db'
 import { ajax, ajax2 } from '@/utils'
 import { FollowingResult, Following, Subscribe, Vtuber } from '@/models'
 /**
@@ -34,6 +34,36 @@ export async function getUsernameFromUID(uid: number) {
         }
     }
     return name
+}
+
+/**
+ * 根据uid获取直播间号
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-06-23
+ * @export
+ * @param {number} uid
+ * @returns
+ */
+export async function getRoomIdFromUID(uid: number) {
+    if (typeof uid !== 'number' || uid <= 0) {
+        return 0
+    }
+    const key = `bili-roomid-from-uid-${uid}`
+    let roomid: number = Number((await filestore.get(key)) || 0)
+    if (!roomid) {
+        const result = await ajax('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld', {
+            mid: uid,
+        }, {}, 'GET', {
+            Referer: `https://space.bilibili.com/${uid}/`,
+        })
+        // console.log(result.data)
+        if (result.data?.code === 0) {
+            roomid = result.data?.data?.roomid
+            await filestore.set(key, roomid)
+        }
+    }
+    return roomid
 }
 
 /**
