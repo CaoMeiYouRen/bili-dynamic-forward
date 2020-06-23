@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.2.3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.2...v1.2.3) (2020-06-23)
+
+
+### 🐛 Bug 修复
+
+* 优化每轮延时 ([fe38d1b](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/fe38d1b))
+
 ## [1.2.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.1...v1.2.2) (2020-06-22)
 
 
