@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.2.4](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.3...v1.2.4) (2020-06-23)
+
+
+### 🐛 Bug 修复
+
+* 新增 B站emoji显示 ([f38eb42](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/f38eb42))
+
 ## [1.2.3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.2...v1.2.3) (2020-06-23)
 
 
