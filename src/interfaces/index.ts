@@ -1,6 +1,7 @@
 import { CQWebSocket, MessageListenerReturn } from 'cq-websocket'
 import { CQError, CQLog } from '@/models'
 import { printTime } from '@/utils'
+import { IS_DEBUG } from '@/config'
 /**
  * 如果返回值为真，则后续的都不再响应。如果返回值为假，则会继续向下匹配
  */
@@ -69,7 +70,9 @@ export class CQApp {
                             } else {
                                 printTime(`[发送私聊消息] QQID:${ctx.user_id} msg:${JSON.stringify(message)}`, CQLog.LOG_INFO_SEND)
                             }
-                            return result
+                            if (!IS_DEBUG){
+                                return result
+                            }
                         }
                     }
                 }
