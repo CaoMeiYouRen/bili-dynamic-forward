@@ -1,7 +1,7 @@
 import { Subscribe, CQLog } from '@/models'
 import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
-import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME} from '@/config'
+import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
 
 /**
@@ -52,6 +52,6 @@ setTimeout(async () => {
         } catch (error) {
             console.error(error)
         }
-        await sleep(60 * 1000)
+        await sleep(SLEEP_TIME)
     }
 }, 2000)

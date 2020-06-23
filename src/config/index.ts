@@ -52,3 +52,8 @@ export const API_SLEEP_TIME = Number(env.API_SLEEP_TIME || 1000)
  * 发送消息的延时
  */
 export const MSG_SLEEP_TIME = Number(env.MSG_SLEEP_TIME || 500)
+
+/**
+ * 一轮访问后的延时
+ */
+export const SLEEP_TIME = Number(env.SLEEP_TIME || 60000)
