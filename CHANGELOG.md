@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.3.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.4...v1.3.0) (2020-06-23)
+
+
+### ✨ 新功能
+
+* 新增 直播推送 ([1035185](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/1035185)), closes [#2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/issues/2)
+
 ## [1.2.4](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.2.3...v1.2.4) (2020-06-23)
 
 
