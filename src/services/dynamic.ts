@@ -5,6 +5,7 @@ import { jsonDeepParse, timeFormat, sendPrivateMsg } from '@/utils'
 import { RssChannel, RssItem } from '@/models'
 import { CQImage } from 'cq-websocket'
 import { getUsernameFromUID } from './helper'
+import { USE_BV } from '@/config'
 
 class CardItem {
     desc: any
@@ -112,6 +113,10 @@ export async function getBiliDynamic(uid: number) {
                 }
                 const type: number = item?.desc?.type
                 if (data.aid) {
+                    if (USE_BV) {
+                        const bvid = item?.desc?.bvid || item?.desc?.origin?.bvid
+                        return `\n视频地址：https://www.bilibili.com/video/${bvid}`
+                    }
                     return `\n视频地址：https://www.bilibili.com/video/av${data?.aid}`
                 }
                 if (data.image_urls) {

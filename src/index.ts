@@ -1,4 +1,5 @@
 import path = require('path')
+import fs = require('fs-extra')
 import moduleAlias from 'module-alias'
 moduleAlias.addAlias('@', path.join(__dirname, './'))
 import { CQWebSocket } from 'cq-websocket'
@@ -10,8 +11,10 @@ import { app } from './routes'
 export const bot = new CQWebSocket(getCQWebSocketOption())
 
 bot.on('socket.connecting', (socketType, attempts) => {
+    console.log(socketType)
     printTime(`[WebSocket] 尝试第${attempts}次连线`, CQLog.LOG_INFO)
 }).on('socket.connect', (socketType, sock, attempts) => {
+    console.log(socketType)
     printTime(`[WebSocket] 第${attempts}次连线尝试成功`, CQLog.LOG_INFO_SUCCESS)
 }).on('socket.failed', (socketType, attempts) => {
     printTime(`[WebSocket] 第${attempts}次连线尝试失败 `, CQLog.LOG_WARNING)
@@ -25,7 +28,9 @@ bot.on('socket.connecting', (socketType, attempts) => {
 
 bot.connect()
 
-bot.on('ready', () => {
+bot.on('ready', async () => {
+    const file = await fs.readJSON('package.json')
+    printTime(`[Info] 当版本号：${file.version}`, CQLog.LOG_INFO)
     printTime('[WebSocket] 连接成功！', CQLog.LOG_INFO)
     app.run(bot)
 })
