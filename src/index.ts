@@ -11,10 +11,8 @@ import { app } from './routes'
 export const bot = new CQWebSocket(getCQWebSocketOption())
 
 bot.on('socket.connecting', (socketType, attempts) => {
-    console.log(socketType)
     printTime(`[WebSocket] 尝试第${attempts}次连线`, CQLog.LOG_INFO)
 }).on('socket.connect', (socketType, sock, attempts) => {
-    console.log(socketType)
     printTime(`[WebSocket] 第${attempts}次连线尝试成功`, CQLog.LOG_INFO_SUCCESS)
 }).on('socket.failed', (socketType, attempts) => {
     printTime(`[WebSocket] 第${attempts}次连线尝试失败 `, CQLog.LOG_WARNING)
