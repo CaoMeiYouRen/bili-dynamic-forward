@@ -40,7 +40,7 @@ export async function saveSubscribeList(list: Subscribe[]) {
  * @returns {Promise<Subscribe[]>}
  */
 export async function getSubscribeList(): Promise<Subscribe[]> {
-    if (!(await fs.pathExists('data'))) {
+    if ( !(await fs.pathExists('data/subscribeList.json'))) {
         return []
     }
     return fs.readJSON('data/subscribeList.json')
