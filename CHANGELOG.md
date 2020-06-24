@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.3.3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.2...v1.3.3) (2020-06-24)
+
+
+### 🐛 Bug 修复
+
+* 优化 subscribeList.json 不存在时报错 ([8f42c1d](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/8f42c1d))
+
 ## [1.3.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.1...v1.3.2) (2020-06-24)
 
 
