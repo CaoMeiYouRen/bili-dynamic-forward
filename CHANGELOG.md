@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.3.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.1...v1.3.2) (2020-06-24)
+
+
+### 🐛 Bug 修复
+
+* 新增BV号支持；优化版本号显示 ([eda7f48](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/eda7f48))
+
 ## [1.3.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.0...v1.3.1) (2020-06-24)
 
 
