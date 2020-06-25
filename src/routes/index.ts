@@ -36,7 +36,7 @@ app.use(/^订阅列表$/i, async (bot, ctx) => {
     return text
 })
 
-app.use(/^订阅转移 (\d+)( \d+)?$/i, async (bot, ctx) => {
+app.use(/^订阅转移 (\d+)( (-)?\d+)?$/i, async (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type, message } = ctx
     const args = message.split(' ')
     if (args.length < 3) {

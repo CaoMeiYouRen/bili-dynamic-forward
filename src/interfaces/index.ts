@@ -66,11 +66,11 @@ export class CQApp {
                         }
                         if (result) {
                             if (ctx.group_id) {
-                                printTime(`[发送群消息] 群号:${ctx.group_id} msg:${JSON.stringify(message)}`, CQLog.LOG_INFO_SEND)
+                                printTime(`[发送群消息] 群号:${ctx.group_id} msg:${JSON.stringify(result)}`, CQLog.LOG_INFO_SEND)
                             } else {
-                                printTime(`[发送私聊消息] QQID:${ctx.user_id} msg:${JSON.stringify(message)}`, CQLog.LOG_INFO_SEND)
+                                printTime(`[发送私聊消息] QQID:${ctx.user_id} msg:${JSON.stringify(result)}`, CQLog.LOG_INFO_SEND)
                             }
-                            if (!IS_DEBUG){
+                            if (!IS_DEBUG) {
                                 return result
                             }
                         }
