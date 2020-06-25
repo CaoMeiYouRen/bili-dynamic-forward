@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.3.5](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.4...v1.3.5) (2020-06-25)
+
+
+### 🐛 Bug 修复
+
+* 优化订阅转移 ([9399bb3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/9399bb3))
+
 ## [1.3.4](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.3...v1.3.4) (2020-06-24)
 
 
