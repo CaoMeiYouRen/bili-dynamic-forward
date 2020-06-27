@@ -80,13 +80,16 @@ export async function getBiliDynamic(uid: number) {
             }
             const getTitle = (data) => data.title || '' // || data.description || data.content || data?.vest?.content || ''
             const getDes = (data) => {
-                let des = data.desc || data.description || data.content || data.summary || (data?.vest?.content ? data.vest.content : '') + (data?.sketch ? `\n${data.sketch?.title}\n${data.sketch?.desc_text}` : '') || data.intro || ''
+                if (!data) {
+                    return ''
+                }
+                let des = data.desc || data.description || data.content || data.summary || (data?.vest?.content ? data.vest.content : '') + (data?.sketch ? `\n${data.sketch?.title}\n${data.sketch?.desc_text}` : '') || data.intro || data.update_info || ''
                 if (item?.display?.emoji_info) {
                     const emoji = item?.display?.emoji_info?.emoji_details
                     emoji?.forEach((e) => {
                         des = des.replace(
                             new RegExp(`\\${e.text}`, 'g'),
-                            new CQImage(`${e.url}@50w_1e_1c.png`).toString(),
+                            new CQImage(`${e.url}@40w_1e_1c.png`).toString(),
                         )
                     })
                 }
@@ -105,8 +108,20 @@ export async function getBiliDynamic(uid: number) {
                 }
                 return text
             }
-            const getOriginName = (data) => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || ''
-            const getOriginTitle = (data) => (data?.title ? `${data.title}\n` : '')
+            const getOriginName = (data) => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || data?.up_info?.name || ''
+            const getOriginTitle = (data) => {
+                if (!data) {
+                    return ''
+                }
+                let title = ''
+                if (data?.title) {
+                    title += `${data.title}\n`
+                }
+                if (data?.subtitle) {
+                    title += `${data.subtitle}\n`
+                }
+                return title
+            }
             const getUrl = (data) => {
                 if (!data) {
                     return ''
@@ -131,7 +146,7 @@ export async function getBiliDynamic(uid: number) {
                 if (data.sketch) {
                     return `\n活动地址：${data?.sketch?.target_url}`
                 }
-                if (data.apiSeasonInfo) {
+                if (data.url) {
                     return `\n地址：${data?.url}`
                 }
                 return ''
@@ -240,4 +255,13 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
         - uname 用户名
         - title 直播间标题
         - cover 直播间封面
+    - 付费课程
+        - id 课程编号
+        - cover 封面
+        - title 标题
+        - subtitle 副标题
+        - up_info.name 用户名
+        - up_id 用户Id
+        - update_info 更新状态
+        - url 地址
 */
