@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.3.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.5...v1.3.6) (2020-06-27)
+
+
+### 🐛 Bug 修复
+
+* 新增 付费课程动态 ([c4b433b](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/c4b433b))
+
 ## [1.3.5](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.4...v1.3.5) (2020-06-25)
 
 
