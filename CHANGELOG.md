@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.3.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.6...v1.3.7) (2020-06-28)
+
+
+### 🐛 Bug 修复
+
+* 修改 视频地址默认为BV号 ([f99213f](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/f99213f))
+
 ## [1.3.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.5...v1.3.6) (2020-06-27)
 
 
