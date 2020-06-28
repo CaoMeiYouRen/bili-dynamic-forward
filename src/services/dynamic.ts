@@ -5,7 +5,7 @@ import { jsonDeepParse, timeFormat, sendPrivateMsg } from '@/utils'
 import { RssChannel, RssItem } from '@/models'
 import { CQImage } from 'cq-websocket'
 import { getUsernameFromUID } from './helper'
-import { USE_BV } from '@/config'
+import { USE_AV } from '@/config'
 
 class CardItem {
     desc: any
@@ -101,7 +101,7 @@ export async function getBiliDynamic(uid: number) {
                 }
                 let text = ''
                 if (data?.apiSeasonInfo?.title) {
-                    text += `//转发自: ${data.apiSeasonInfo.title}`
+                    text += `\n//转发自: ${data.apiSeasonInfo.title}`
                 }
                 if (data?.index_title) {
                     text += `\n${data.index_title}`
@@ -128,11 +128,11 @@ export async function getBiliDynamic(uid: number) {
                 }
                 const type: number = item?.desc?.type
                 if (data.aid) {
-                    if (USE_BV) {
-                        const bvid = item?.desc?.bvid || item?.desc?.origin?.bvid
-                        return `\n视频地址：https://www.bilibili.com/video/${bvid}`
+                    if (USE_AV) {
+                        return `\n视频地址：https://www.bilibili.com/video/av${data?.aid}`
                     }
-                    return `\n视频地址：https://www.bilibili.com/video/av${data?.aid}`
+                    const bvid = item?.desc?.bvid || item?.desc?.origin?.bvid
+                    return `\n视频地址：https://www.bilibili.com/video/${bvid}`
                 }
                 if (data.image_urls) {
                     return `\n专栏地址：https://www.bilibili.com/read/cv${data?.id}`

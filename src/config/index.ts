@@ -58,6 +58,6 @@ export const MSG_SLEEP_TIME = Number(env.MSG_SLEEP_TIME || 500)
  */
 export const SLEEP_TIME = Number(env.SLEEP_TIME || 60000)
 /**
- * 是否使用BV号
+ * 是否使用AV号
  */
-export const USE_BV = env.USE_BV === 'true'
+export const USE_AV = env.USE_AV === 'true'
