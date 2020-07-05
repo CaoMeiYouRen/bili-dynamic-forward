@@ -6,7 +6,7 @@
 
 ## 运行环境
 
--   coolq-http-api >= 4.5.0
+-   coolq-http-api >= 4.15.0
 -   node  >= 12
 
 ## 安装
