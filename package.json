@@ -111,7 +111,7 @@
     "semantic-release": "^17.0.8",
     "should": "^13.2.3",
     "supertest": "^4.0.2",
-    "ts-loader": "^7.0.4",
+    "ts-loader": "^8.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.5",
     "validate-commit-msg": "^2.14.0",
