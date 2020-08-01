@@ -40,7 +40,7 @@ export async function saveSubscribeList(list: Subscribe[]) {
  * @returns {Promise<Subscribe[]>}
  */
 export async function getSubscribeList(): Promise<Subscribe[]> {
-    if ( !(await fs.pathExists('data/subscribeList.json'))) {
+    if (!(await fs.pathExists('data/subscribeList.json'))) {
         return []
     }
     return fs.readJSON('data/subscribeList.json')
@@ -227,6 +227,7 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
         if (!e.pubDate) {
             return false
         }
-        return new Date(e.pubDate).getTime() > lastDynamic
+        const pubDate = new Date(e.pubDate).getTime()
+        return pubDate > lastDynamic && (Date.now() - pubDate < 1000 * 60 * 60 * 24) // 获取一天内的动态
     }).reverse().slice(0, limit)
 }
