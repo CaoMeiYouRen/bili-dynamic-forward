@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.4.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.7...v1.4.0) (2020-08-01)
+
+
+### ✨ 新功能
+
+* 更新 Node.js 版本为 12.18.3 ([2176556](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/2176556))
+
 ## [1.3.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.6...v1.3.7) (2020-06-28)
 
 
