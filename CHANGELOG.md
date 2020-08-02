@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.5.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.4.1...v1.5.0) (2020-08-02)
+
+
+### ✨ 新功能
+
+* 新增免打扰时间配置；新增启用周号配置 ([e5d9355](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/e5d9355))
+
 ## [1.4.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.4.0...v1.4.1) (2020-08-02)
 
 
