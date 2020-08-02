@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.4.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.4.0...v1.4.1) (2020-08-02)
+
+
+### 🐛 Bug 修复
+
+* 优化 最新动态只获取最近24小时内容 ([b65b05a](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/b65b05a))
+
 # [1.4.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.3.7...v1.4.0) (2020-08-01)
 
 
