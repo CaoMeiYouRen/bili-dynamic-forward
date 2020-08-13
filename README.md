@@ -1,5 +1,7 @@
 # bili-dynamic-forward
 
+本项目停止维护
+
 >   草梅B站动态转发
 
 转发B站动态到QQ，基于[coolq-http-api](https://github.com/richardchien/coolq-http-api)、[cq-websocket](https://github.com/momocow/node-cq-websocket)。通过轮询B站的 api 来推送最新动态
