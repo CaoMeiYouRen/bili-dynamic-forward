@@ -19,7 +19,7 @@ export function parseTime(str: string | Date) {
     if (str) {
         const timeNlp = new ChiTimeNlpAfter()
         const date: Date = timeNlp.parse(str)
-        if (date && (String(date).toUpperCase() !== 'Invalid Date'.toUpperCase())) { // 如果是正确的日期就直接返回
+        if (date && String(date).toUpperCase() !== 'Invalid Date'.toUpperCase()) { // 如果是正确的日期就直接返回
             return date
         }
     }
@@ -33,7 +33,7 @@ export function parseTime(str: string | Date) {
  * @param {string} [pattern='YYYY-MM-DD HH:mm:ss']
  * @returns {string}
  */
-export function timeFormat(date: Date | number | string = Date.now(), pattern: string = 'YYYY-MM-DD HH:mm:ss'): string {
+export function timeFormat(date: Date | number | string = Date.now(), pattern = 'YYYY-MM-DD HH:mm:ss'): string {
     let dateTime: Date | number | string = date
     if (typeof date === 'number') {
         if (date < 1e10) {

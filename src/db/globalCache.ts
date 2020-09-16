@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import Lru from 'lru-cache'
 import { CACHE } from '@/config'
 const memoryCache = new Lru({

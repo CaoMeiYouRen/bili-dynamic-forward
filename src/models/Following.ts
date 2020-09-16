@@ -47,4 +47,3 @@ export class FollowingResult {
     ttl: number
     data: Data
 }
-

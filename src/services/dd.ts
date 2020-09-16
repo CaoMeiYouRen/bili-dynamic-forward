@@ -9,7 +9,7 @@ import { VUP_BAN_LIST } from '@/db'
  * @date 2020-06-18
  * @returns
  */
-export async function getVupAndVtuberList(limit: number = 20) {
+export async function getVupAndVtuberList(limit = 20) {
     let list: Vtuber[] = []
     let url = 'https://static.imas.app/vup.json'
     let result = await ajax(url)
@@ -19,6 +19,6 @@ export async function getVupAndVtuberList(limit: number = 20) {
     list = list.concat(result.data?.tables)
     list = _.uniqBy(list, e => e.mid)
     list = _.differenceBy(list, VUP_BAN_LIST, e => e.mid)
-    list = list.sort((a, b) => (b.suber - a.suber)).slice(0, limit)
+    list = list.sort((a, b) => b.suber - a.suber).slice(0, limit)
     return list
 }

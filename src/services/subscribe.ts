@@ -5,9 +5,9 @@ import { getUsernameFromUID, getAllFollowings } from './helper'
 import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
 import { getVupAndVtuberList } from './dd'
-import { ENABLE_DAY, FREE_TIMES } from '@/config'
-
-getSubscribeList().then(async list => {
+import { ENABLE_DAY, FREE_TIMES } from '@/config';
+(async () => {
+    let list = await getSubscribeList()
     list = _.uniq(list)
     for (let i = 0; i < list.length; i++) {
         const e = list[i]
@@ -19,7 +19,7 @@ getSubscribeList().then(async list => {
         }
         SUBSCRIBE_LIST.push(e)
     }
-})
+})()
 
 /**
  * 保存 订阅列表
@@ -28,7 +28,7 @@ getSubscribeList().then(async list => {
  * @date 2020-06-17
  */
 export async function saveSubscribeList(list: Subscribe[]) {
-    if (!(await fs.pathExists('data'))) {
+    if (!await fs.pathExists('data')) {
         await fs.mkdir('data')
     }
     await fs.writeFile('data/subscribeList.json', JSON.stringify(list, null, 4))
@@ -41,7 +41,7 @@ export async function saveSubscribeList(list: Subscribe[]) {
  * @returns {Promise<Subscribe[]>}
  */
 export async function getSubscribeList(): Promise<Subscribe[]> {
-    if (!(await fs.pathExists('data/subscribeList.json'))) {
+    if (!await fs.pathExists('data/subscribeList.json')) {
         return []
     }
     return fs.readJSON('data/subscribeList.json')
@@ -58,7 +58,7 @@ export async function getSubscribeList(): Promise<Subscribe[]> {
  * @param {string} [userName]
  */
 export async function subscribeUp(userId: number, subId: number, subType: string, userName?: string) {
-    let sub = SUBSCRIBE_LIST.find((e => e.userId === userId))
+    let sub = SUBSCRIBE_LIST.find(e => e.userId === userId)
     if (!sub) {
         if (!userName) {
             userName = await getUsernameFromUID(userId)
@@ -124,7 +124,7 @@ export async function transferSubscribeUp(userId: number, subId: number, subType
  * @param {string} subType 订阅类型 personal/group
  */
 export async function unsubscribeUp(userId: number, subId: number, subType: string) {
-    const sub = SUBSCRIBE_LIST.find((e => e.userId === userId))
+    const sub = SUBSCRIBE_LIST.find(e => e.userId === userId)
     if (!sub) {
         throw new CQError('该 up 未被任何用户订阅')
     }
@@ -150,11 +150,7 @@ export async function unsubscribeUp(userId: number, subId: number, subType: stri
  * @param {string} subType 订阅类型 personal/group
  */
 export async function unsubscribeAllUp(subId: number, subType: string) {
-    const subs = SUBSCRIBE_LIST.filter(e => {
-        return e.subscribers.find(f => {
-            return f.subId === subId && f.subType === subType
-        })
-    })
+    const subs = SUBSCRIBE_LIST.filter(e => e.subscribers.find(f => f.subId === subId && f.subType === subType))
     if (subs.length === 0) {
         throw new CQError('您尚未订阅任何 up')
     }
@@ -180,7 +176,7 @@ export async function unsubscribeAllUp(subId: number, subType: string) {
  * @param {number} [limit=20]
  * @returns
  */
-export async function oneClickDD(subId: number, subType: string, limit: number = 20) {
+export async function oneClickDD(subId: number, subType: string, limit = 20) {
     const vups = await getVupAndVtuberList(limit)
     for (let i = 0; i < vups.length; i++) {
         const e = vups[i]
@@ -201,12 +197,8 @@ export async function oneClickDD(subId: number, subType: string, limit: number =
  * @param {number} subId
  * @param {string} subType
  */
-export async function querySubscribe(subId: number, subType: string) {
-    return SUBSCRIBE_LIST.filter(e => {
-        return e.subscribers.find(f => {
-            return f.subId === subId && f.subType === subType
-        })
-    })
+export function querySubscribe(subId: number, subType: string) {
+    return SUBSCRIBE_LIST.filter(e => e.subscribers.find(f => f.subId === subId && f.subType === subType))
 }
 /**
  * 取未被推送的动态数组
@@ -219,7 +211,7 @@ export async function querySubscribe(subId: number, subType: string) {
  * @param {number} [limit=3]
  * @returns
  */
-export async function getNotPushDynamic(userId: number, lastDynamic: number, limit: number = 3) {
+export async function getNotPushDynamic(userId: number, lastDynamic: number, limit = 3) {
     const channel = await getBiliDynamic(userId)
     const now = new Date()
     const nowMins = now.getHours() * 60 + now.getMinutes()
@@ -235,11 +227,11 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
     if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
         return []
     }
-    return channel?.item.filter(e => {
+    return channel?.item.filter((e) => {
         if (!e.pubDate) {
             return false
         }
         const pubDate = new Date(e.pubDate).getTime()
-        return pubDate > lastDynamic && (Date.now() - pubDate < 1000 * 60 * 60 * 24) // 获取一天内的动态
+        return pubDate > lastDynamic && Date.now() - pubDate < 1000 * 60 * 60 * 24 // 获取一天内的动态
     }).reverse().slice(0, limit)
 }

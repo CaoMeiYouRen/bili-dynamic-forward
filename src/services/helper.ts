@@ -16,7 +16,7 @@ export async function getUsernameFromUID(uid: number) {
         return ''
     }
     const key = `bili-username-from-uid-${uid}`
-    let name: string = (await globalCache.get(key)) || ''
+    let name: string = await globalCache.get(key) || ''
     if (!name) {
         const result = await ajax2({
             url: 'https://space.bilibili.com/ajax/member/GetInfo',
@@ -50,7 +50,7 @@ export async function getRoomIdFromUID(uid: number) {
         return 0
     }
     const key = `bili-roomid-from-uid-${uid}`
-    let roomid: number = Number((await filestore.get(key)) || 0)
+    let roomid = Number(await filestore.get(key) || 0)
     if (!roomid) {
         const result = await ajax('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld', {
             mid: uid,
@@ -125,7 +125,7 @@ export async function getFollowings(uid: number, pn: number, tag?: number) {
         return []
     }
     const data: FollowingResult = result.data
-    return data?.data?.list.filter(e => {
+    return data?.data?.list.filter((e) => {
         if (!tag) {
             return true
         }
@@ -154,4 +154,3 @@ export async function getFollowingNumber(uid: number): Promise<number> {
     })
     return result.data?.data?.following || 0
 }
-

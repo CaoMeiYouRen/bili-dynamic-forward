@@ -58,7 +58,7 @@ export class CQApp {
                 }
                 for (let i = 0; i < plugins.length; i++) {
                     const [path, plugin] = plugins[i]
-                    if ((typeof path === 'string' && path === message) || path instanceof RegExp && path.test(message)) {
+                    if (typeof path === 'string' && path === message || path instanceof RegExp && path.test(message)) {
                         let result = plugin(bot, ctx)
                         // console.log(result, ctx)
                         if (result instanceof Promise) {

@@ -7,12 +7,12 @@ export class FileStore {
      *
      * @type {string}
      */
-    root: string = './data'
+    root = './data'
     constructor(root?: string) {
         if (root) {
             this.root = root
         }
-        if (!(fs.pathExistsSync(this.root))) {
+        if (!fs.pathExistsSync(this.root)) {
             fs.mkdirSync(this.root)
         }
     }
@@ -25,10 +25,10 @@ export class FileStore {
      * @param {string} [filename='global']
      * @returns {Promise<any>}
      */
-    async get(key: string, filename: string = 'global'): Promise<any> {
+    async get(key: string, filename = 'global'): Promise<any> {
         let file: any = {}
         const filepath = path.join(this.root, `${filename}.json`)
-        if (await (fs.pathExists(filepath))) {
+        if (await fs.pathExists(filepath)) {
             try {
                 file = await fs.readJSON(filepath)
             } catch (error) {
@@ -47,11 +47,11 @@ export class FileStore {
      * @param {string} [filename='global']
      * @returns {Promise<boolean>}
      */
-    async set(key: string, data: any, filename: string = 'global'): Promise<boolean> {
+    async set(key: string, data: any, filename = 'global'): Promise<boolean> {
         try {
             let file: any = {}
             const filepath = path.join(this.root, `${filename}.json`)
-            if (await (fs.pathExists(filepath))) {
+            if (await fs.pathExists(filepath)) {
                 try {
                     file = await fs.readJSON(filepath)
                 } catch (error) {

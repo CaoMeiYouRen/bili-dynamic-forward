@@ -64,15 +64,17 @@ export async function pushDynamic(list: Subscribe[]) {
 }
 
 
-setTimeout(async () => {
-    printTime('开始轮询最新动态', CQLog.LOG_DEBUG)
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        try {
-            await pushDynamic(SUBSCRIBE_LIST)
-        } catch (error) {
-            console.error(error)
+setTimeout(() => {
+    (async () => {
+        printTime('开始轮询最新动态', CQLog.LOG_DEBUG)
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            try {
+                await pushDynamic(SUBSCRIBE_LIST)
+                await sleep(SLEEP_TIME)
+            } catch (error) {
+                console.error(error)
+            }
         }
-        await sleep(SLEEP_TIME)
-    }
+    })()
 }, 2000)

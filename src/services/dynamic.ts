@@ -78,7 +78,7 @@ export async function getBiliDynamic(uid: number) {
             } else if (item?.desc?.dynamic_id_str) {
                 link = `https://t.bilibili.com/${item.desc.dynamic_id_str}`
             }
-            const getTitle = (data) => data.title || '' // || data.description || data.content || data?.vest?.content || ''
+            const getTitle = data => data.title || '' // || data.description || data.content || data?.vest?.content || ''
             const getDes = (data) => {
                 if (!data) {
                     return ''
@@ -108,7 +108,7 @@ export async function getBiliDynamic(uid: number) {
                 }
                 return text
             }
-            const getOriginName = (data) => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || data?.up_info?.name || ''
+            const getOriginName = data => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || data?.up_info?.name || ''
             const getOriginTitle = (data) => {
                 if (!data) {
                     return ''
@@ -171,7 +171,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     }
     text += `${dynamic.description}\n`
     if (dynamic.images?.length) {
-        text += `${dynamic.images?.map(e => {
+        text += `${dynamic.images?.map((e) => {
             if (!e.includes('@')) { // 开启图片压缩
                 e += '@518w_1e_1c.png'
             }

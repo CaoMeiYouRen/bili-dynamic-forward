@@ -7,4 +7,3 @@ export class Vtuber {
     totalplay: number
     incr: number
 }
-

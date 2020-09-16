@@ -161,7 +161,7 @@ export async function sendMsg(message: string | CQMessage | CQMessage[], user_id
  */
 export async function isGroupAdmin(group_id: number, user_id: number): Promise<boolean> {
     const key = `is-group-admin-${group_id}-uid-${user_id}`
-    let role: string = (await globalCache.get(key)) || ''
+    let role: string = await globalCache.get(key) || ''
     if (!role) {
         const info = await getGroupMemberInfo(group_id, user_id)
         role = info.role
@@ -180,7 +180,7 @@ export async function isGroupAdmin(group_id: number, user_id: number): Promise<b
 * @returns {Promise<MemberInfo>}
 * @memberof CoolQ
 */
-export async function getGroupMemberInfo(group_id: number, user_id: number, no_cache: boolean = false): Promise<MemberInfo> {
+export async function getGroupMemberInfo(group_id: number, user_id: number, no_cache = false): Promise<MemberInfo> {
     if (IS_DEBUG) {
         const testMemberInfo: MemberInfo = {
             group_id,

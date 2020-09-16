@@ -77,4 +77,3 @@ if (math) {
     b.setMinutes(parseInt(math[4]))
     FREE_TIMES.push(b)
 }
-

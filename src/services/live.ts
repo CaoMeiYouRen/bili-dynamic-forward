@@ -81,7 +81,7 @@ export async function isLive(uid: number) {
  * @param {number} uid
  */
 export async function isNewLive(uid: number) {
-    if (!(await isLive(uid))) { // 如果未开播直接返回false
+    if (!await isLive(uid)) { // 如果未开播直接返回false
         return false
     }
     const roomid = await getRoomIdFromUID(uid)
@@ -95,7 +95,7 @@ export async function isNewLive(uid: number) {
     }
     const oldRoom: BiliLive = await filestore.get(key, 'live')
     // 如果不存在旧的直播间信息或开播时间不同则为新开播
-    if (!oldRoom || (oldRoom.live_time !== newRoom.live_time)) {
+    if (!oldRoom || oldRoom.live_time !== newRoom.live_time) {
         const { live_time } = newRoom
         await filestore.set(key, { live_time }, 'live')
         return newRoom

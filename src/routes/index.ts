@@ -5,23 +5,21 @@ import { querySubscribe, transferSubscribeUp, getUsernameFromUID, unsubscribeUp,
 
 const app = new CQApp('bili')
 
-app.use(/^(订阅)?(主菜单|指令)$/i, (bot, ctx) => {
-    return 'bili主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]'
-})
+app.use(/^(订阅)?(主菜单|指令)$/i, (bot, ctx) => 'bili主菜单\nbili订阅列表\nbili订阅 [uid]\nbili取消订阅 [uid]\nbili取消全部订阅\nbili订阅转移 [uid] [?tagid]\nbili一键dd [?num]')
 
 app.use(/.*/i, async (bot, ctx) => {
     ctx.sub_id = ctx.group_id ? ctx.group_id : ctx.user_id
     ctx.sub_type = ctx.group_id ? SubscribeType.group : SubscribeType.personal
     const { user_id, group_id, message } = ctx
-    if (/^(主菜单|订阅列表|订阅转移 |订阅 |取消订阅 |取消全部订阅|一键dd )/.test(message) && group_id && !(await isGroupAdmin(group_id, user_id))) {
+    if (/^(主菜单|订阅列表|订阅转移 |订阅 |取消订阅 |取消全部订阅|一键dd )/.test(message) && group_id && !await isGroupAdmin(group_id, user_id)) {
         return '非常抱歉，该操作仅管理员可用！'
     }
 })
 
-app.use(/^订阅列表$/i, async (bot, ctx) => {
+app.use(/^订阅列表$/i, (bot, ctx) => {
     const { user_id, group_id, sub_id, sub_type } = ctx
     let text = ''
-    const subscribes = (await querySubscribe(sub_id, sub_type))
+    const subscribes = querySubscribe(sub_id, sub_type)
     if (subscribes.length === 0) {
         return '非常抱歉，未查询到您的订阅。发送 bili订阅 + uid 即可订阅up主动态'
     }
@@ -30,9 +28,7 @@ app.use(/^订阅列表$/i, async (bot, ctx) => {
     } else {
         text = '您当前关注的up主如下\n'
     }
-    text += `${subscribes.map((e, i) => {
-        return `${i + 1}.${e.userName}(uid: ${e.userId})`
-    }).join('\n')}`
+    text += `${subscribes.map((e, i) => `${i + 1}.${e.userName}(uid: ${e.userId})`).join('\n')}`
     return text
 })
 
