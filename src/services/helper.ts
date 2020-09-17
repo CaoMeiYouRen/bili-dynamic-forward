@@ -18,17 +18,13 @@ export async function getUsernameFromUID(uid: number) {
     const key = `bili-username-from-uid-${uid}`
     let name: string = await globalCache.get(key) || ''
     if (!name) {
-        const result = await ajax2({
-            url: 'https://space.bilibili.com/ajax/member/GetInfo',
-            data: { mid: uid },
-            method: 'POST',
-            headers: {
-                Referer: `https://space.bilibili.com/${uid}/`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
+        const result = await ajax('https://api.bilibili.com/x/space/acc/info', {
+            mid: uid, jsonp: 'jsonp',
+        }, {}, 'GET', {
+            Referer: `https://space.bilibili.com/${uid}/`,
         })
         // console.log(result.data)
-        if (result.data?.status) {
+        if (result.data?.code === 0) {
             name = result.data?.data?.name
             await globalCache.set(key, name, 3600 * 24 * 7)
         }
