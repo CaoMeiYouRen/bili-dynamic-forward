@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.5.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.5.1...v1.5.2) (2020-09-17)
+
+
+### 🐛 Bug 修复
+
+* 修复 获取用户名接口 ([17fa27c](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/17fa27c)), closes [#18](https://github.com/CaoMeiYouRen/bili-dynamic-forward/issues/18)
+
 ## [1.5.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.5.0...v1.5.1) (2020-09-16)
 
 
