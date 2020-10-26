@@ -55,7 +55,7 @@
     "language": "zh"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "chi-time-nlp-after": "^1.0.5",
     "colors": "^1.4.0",
     "cq-websocket": "^2.1.1",
