@@ -17,7 +17,7 @@ export async function getVupAndVtuberList(limit = 20) {
     list = list.concat(result.data)
     list = _.uniqBy(list, e => e.mid)
     list = list.sort((a, b) => b.follower - a.follower)
-    list = list.filter(e => !/holoIive/i.test(e.sign) || !/hololive/i.test(e.sign)) // 移除hololive所属
+    list = list.filter(e => !/holo(I|l)ive/i.test(e.sign)) // 移除hololive所属
     list = _.differenceBy(list, VUP_BAN_LIST, e => e.mid) // 移除黑名单成员
     list = list.slice(0, limit)
     return list
