@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.6.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.5.2...v1.6.0) (2020-10-31)
+
+
+### ✨ 新功能
+
+* 修改 一键dd数据源；移除 hololive 所属成员 ([e2676a7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/e2676a7))
+
 ## [1.5.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.5.1...v1.5.2) (2020-09-17)
 
 
