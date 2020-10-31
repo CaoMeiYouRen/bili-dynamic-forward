@@ -19,7 +19,7 @@ bot.on('socket.connecting', (socketType, attempts) => {
 }).on('socket.error', (socketType, error) => {
     printTime('[WebSocket] 连线出现了socket.error错误！！', CQLog.LOG_ERROR)
     console.error(error)
-}).on('error', (error) => {
+}).on('error', error => {
     printTime('[WebSocket] 连线出现了error！！', CQLog.LOG_FATAL)
     console.error(error)
 })
@@ -27,8 +27,10 @@ bot.on('socket.connecting', (socketType, attempts) => {
 bot.connect()
 
 bot.on('ready', async () => {
-    const file = await fs.readJSON('package.json')
-    printTime(`[Info] 当版本号：${file.version}`, CQLog.LOG_INFO)
+    if (await fs.pathExists('package.json')) {
+        const file = await fs.readJSON('package.json')
+        printTime(`[Info] 当版本号：${file.version}`, CQLog.LOG_INFO)
+    }
     printTime('[WebSocket] 连接成功！', CQLog.LOG_INFO)
     app.run(bot)
 })
@@ -42,7 +44,7 @@ bot.on('message.group', (event, ctx, tags) => {
     printTime(`[接收群聊消息] 类型:${ctx.sub_type} GroupId:${ctx.group_id} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS)
 })
 
-bot.on('meta_event.heartbeat', (ctx) => { // 响应心跳连接
+bot.on('meta_event.heartbeat', ctx => { // 响应心跳连接
     (async function () {
         try {
             const result = await bot('get_status')

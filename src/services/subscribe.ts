@@ -181,7 +181,7 @@ export async function oneClickDD(subId: number, subType: string, limit = 20) {
     for (let i = 0; i < vups.length; i++) {
         const e = vups[i]
         try {
-            await subscribeUp(e.mid, subId, subType, e.name)
+            await subscribeUp(e.mid, subId, subType, e.uname)
         } catch (error) {
         }
     }
@@ -227,7 +227,7 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
     if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
         return []
     }
-    return channel?.item.filter((e) => {
+    return channel?.item.filter(e => {
         if (!e.pubDate) {
             return false
         }

@@ -121,7 +121,7 @@ export async function getFollowings(uid: number, pn: number, tag?: number) {
         return []
     }
     const data: FollowingResult = result.data
-    return data?.data?.list.filter((e) => {
+    return data?.data?.list.filter(e => {
         if (!tag) {
             return true
         }

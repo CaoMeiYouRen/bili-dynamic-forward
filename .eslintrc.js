@@ -20,12 +20,9 @@ module.exports = {
         ecmaFeatures: {
             modules: true,
         },
-        project: './tsconfig.json',
-        tsconfigRootDir: __dirname,
     },
     parser: '@typescript-eslint/parser',
     rules: {
-        '@typescript-eslint/no-floating-promises': [2, { ignoreIIFE: true }],
         indent: [2, 4, { SwitchCase: 1 }], // 强制使用一致的缩进// case 子句将相对于 switch 语句缩进 4 个空格，即一个tab
         'linebreak-style': [2, 'unix'], // 强制使用一致的换行风格
         quotes: [2, 'single'], // 强制使用一致的反勾号、双引号或单引号double

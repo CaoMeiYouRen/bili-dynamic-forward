@@ -30,14 +30,14 @@ export async function getBiliDynamic(uid: number) {
         title: `${uname} 的 bilibili 动态`,
         link: `https://space.bilibili.com/${uid}/#/dynamic`,
         description: `${uname} 的 bilibili 动态`,
-        item: cards.map((item) => {
+        item: cards.map(item => {
             const card = item.card
             const data = card.item || card
             const origin = card.origin
 
             // img
             let images: string[] = []
-            const getImgs = (data) => {
+            const getImgs = data => {
                 const imgs: string[] = []
                 // 动态图片
                 if (data.pictures) {
@@ -79,14 +79,14 @@ export async function getBiliDynamic(uid: number) {
                 link = `https://t.bilibili.com/${item.desc.dynamic_id_str}`
             }
             const getTitle = data => data.title || '' // || data.description || data.content || data?.vest?.content || ''
-            const getDes = (data) => {
+            const getDes = data => {
                 if (!data) {
                     return ''
                 }
                 let des = data.desc || data.description || data.content || data.summary || (data?.vest?.content ? data.vest.content : '') + (data?.sketch ? `\n${data.sketch?.title}\n${data.sketch?.desc_text}` : '') || data.intro || data.update_info || ''
                 if (item?.display?.emoji_info) {
                     const emoji = item?.display?.emoji_info?.emoji_details
-                    emoji?.forEach((e) => {
+                    emoji?.forEach(e => {
                         des = des.replace(
                             new RegExp(`\\${e.text}`, 'g'),
                             new CQImage(`${e.url}@40w_1e_1c.png`).toString(),
@@ -95,7 +95,7 @@ export async function getBiliDynamic(uid: number) {
                 }
                 return des
             }
-            const getOriginDes = (data) => {
+            const getOriginDes = data => {
                 if (!data) {
                     return ''
                 }
@@ -109,7 +109,7 @@ export async function getBiliDynamic(uid: number) {
                 return text
             }
             const getOriginName = data => data.uname || data.author?.name || data.upper || data.user?.uname || data.user?.name || data?.owner?.name || data?.up_info?.name || ''
-            const getOriginTitle = (data) => {
+            const getOriginTitle = data => {
                 if (!data) {
                     return ''
                 }
@@ -122,7 +122,7 @@ export async function getBiliDynamic(uid: number) {
                 }
                 return title
             }
-            const getUrl = (data) => {
+            const getUrl = data => {
                 if (!data) {
                     return ''
                 }
@@ -171,7 +171,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
     }
     text += `${dynamic.description}\n`
     if (dynamic.images?.length) {
-        text += `${dynamic.images?.map((e) => {
+        text += `${dynamic.images?.map(e => {
             if (!e.includes('@')) { // 开启图片压缩
                 e += '@518w_1e_1c.png'
             }
