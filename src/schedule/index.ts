@@ -1,8 +1,9 @@
 import { Subscribe, CQLog } from '@/models'
 import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList, isNewLive, biliLiveFormat } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
-import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME } from '@/config'
+import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME, ENABLE_PUSH } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
+import { dingtalk } from '@/utils/dingtalk'
 
 /**
  * 向订阅者推送最新动态
@@ -28,6 +29,11 @@ export async function pushDynamic(list: Subscribe[]) {
                         await sendGroupMsg(s.subId, text)
                     } else {
                         await sendPrivateMsg(s.subId, text)
+                    }
+                    if (ENABLE_PUSH) {
+                        const ddText = biliDynamicFormat(sub.userName, d, 'dingding')
+                        const title = `检测到您关注的B站up主 ${sub.userName} 发布了新的动态`
+                        await dingtalk(title, ddText)
                     }
                     await sleep(MSG_SLEEP_TIME)
                 }

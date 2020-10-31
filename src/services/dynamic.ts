@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import fs = require('fs-extra')
 import { ajax } from '@/utils/ajax'
-import { jsonDeepParse, timeFormat, sendPrivateMsg } from '@/utils'
+import { jsonDeepParse, timeFormat, sendPrivateMsg, getImageUrl } from '@/utils'
 import { RssChannel, RssItem } from '@/models'
 import { CQImage } from 'cq-websocket'
 import { getUsernameFromUID } from './helper'
@@ -15,7 +15,7 @@ class CardItem {
     display: any
 }
 
-export async function getBiliDynamic(uid: number) {
+export async function getBiliDynamic(uid: number, pushType?: string) {
     const result = await ajax('https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history', {
         host_uid: uid,
     }, {}, 'GET', {
@@ -87,10 +87,20 @@ export async function getBiliDynamic(uid: number) {
                 if (item?.display?.emoji_info) {
                     const emoji = item?.display?.emoji_info?.emoji_details
                     emoji?.forEach(e => {
-                        des = des.replace(
-                            new RegExp(`\\${e.text}`, 'g'),
-                            new CQImage(`${e.url}@40w_1e_1c.png`).toString(),
-                        )
+                        switch (pushType) {
+                            case 'dingding':
+                                des = des.replace(
+                                    new RegExp(`\\${e.text}`, 'g'),
+                                    `![](${e.url})`,
+                                )
+                                break
+                            default:
+                                des = des.replace(
+                                    new RegExp(`\\${e.text}`, 'g'),
+                                    new CQImage(`${e.url}@40w_1e_1c.png`).toString(),
+                                )
+                        }
+
                     })
                 }
                 return des
@@ -154,8 +164,7 @@ export async function getBiliDynamic(uid: number) {
             return new RssItem({
                 title: getTitle(data),
                 link,
-                description: `${getDes(data)}${
-                    origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
+                description: `${getDes(data)}${origin && getOriginName(origin) ? `\n//@${getOriginName(origin)}: ${getOriginTitle(origin.item || origin)}${getDes(origin.item || origin)}` : `${getOriginDes(origin)}`}${getUrl(data)}${getUrl(origin)}`,
                 images,
                 pubDate: new Date(item.desc.timestamp * 1000),
             })
@@ -163,7 +172,18 @@ export async function getBiliDynamic(uid: number) {
     })
 }
 
-export function biliDynamicFormat(userName: string, dynamic: RssItem) {
+/**
+ *
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-11-01
+ * @export
+ * @param {string} userName
+ * @param {RssItem} dynamic
+ * @param {string} [pushType] 推送类型，dingding/coolq
+ * @returns
+ */
+export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?: string) {
     let text = `检测到您关注的B站up主 ${userName} 发布了新的动态\n`
     // 排除简介内容和标题重复
     if (dynamic.title && !dynamic.description.startsWith(dynamic.title)) {
@@ -175,22 +195,29 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem) {
             if (!e.includes('@')) { // 开启图片压缩
                 e += '@518w_1e_1c.png'
             }
-            return new CQImage(e).toString()
+            switch (pushType) {
+                case 'dingding':
+                    return `![](${e})`
+                default:
+                    return new CQImage(e).toString()
+            }
         }).join('')}\n`
     }
     text += `动态链接：${dynamic.link}\n`
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
-    return text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
+    text = text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
+    switch (pushType) {
+        case 'dingding': {
+            const urls = getImageUrl(text)
+            urls.forEach(e => {
+                text = text.replace(e.cq, `![](${e.url})`)
+            })
+            return text.replace('\n', '\n\n')
+        }
+        default:
+            return text
+    }
 }
-
-// (async () => {
-//     setTimeout(async () => {
-//         const result = await getBiliDynamic(2)
-//         const username = await getUsernameFromUID(2)
-//         let text = biliDynamicFormat(username, result?.item[0])
-//         await sendPrivateMsg(996881204, text)
-//     }, 3000)
-// })()
 
 /**
     @by CaoMeiYouRen 2020-05-05 添加注释

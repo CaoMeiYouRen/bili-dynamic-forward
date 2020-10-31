@@ -92,3 +92,16 @@ export async function sleep(time: number) {
 export function removeHtmlTag(str: string) {
     return str ? str.replace(/<[^>]*>/mg, '') : str
 }
+
+/**
+ * 从 CQ 码中提取图片 url
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-11-01
+ * @export
+ * @param {string} image
+ */
+export function getImageUrl(image: string) {
+    const res = image.matchAll(/\[CQ:image,file=(.*?)\]/g)
+    return [...res].map(e => ({ cq: e[0], url: e[1] }))
+}

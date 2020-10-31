@@ -59,6 +59,7 @@
     "chi-time-nlp-after": "^1.0.5",
     "colors": "^1.4.0",
     "cq-websocket": "^2.1.1",
+    "dayjs": "^1.9.4",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",

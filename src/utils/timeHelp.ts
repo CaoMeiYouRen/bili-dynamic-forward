@@ -1,30 +1,7 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import colors = require('colors')
-import ChiTimeNlpAfter = require('chi-time-nlp-after')
 import { CQLog } from '@/models'
 
-/**
- * 解析自然语言中的时间
- *
- * @author CaoMeiYouRen
- * @date 2019-12-11
- * @export
- * @param {(string | Date)} str
- * @returns
- */
-export function parseTime(str: string | Date) {
-    if (str instanceof Date) {
-        return str
-    }
-    if (str) {
-        const timeNlp = new ChiTimeNlpAfter()
-        const date: Date = timeNlp.parse(str)
-        if (date && String(date).toUpperCase() !== 'Invalid Date'.toUpperCase()) { // 如果是正确的日期就直接返回
-            return date
-        }
-    }
-    return new Date() // 如果是错误的日期就重新 new 一个
-}
 
 /**
  * 格式化时间
@@ -40,8 +17,7 @@ export function timeFormat(date: Date | number | string = Date.now(), pattern = 
             dateTime = date * 1000
         }
     }
-    dateTime = new Date(dateTime)
-    return moment(dateTime).format(pattern)
+    return dayjs(dateTime).format(pattern)
 }
 /**
  *

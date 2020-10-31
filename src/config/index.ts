@@ -56,6 +56,19 @@ export const SLEEP_TIME = Number(env.SLEEP_TIME || 60000)
 export const USE_AV = env.USE_AV === 'true'
 
 /**
+ * 是否启用钉钉推送
+ */
+export const ENABLE_PUSH = Boolean(env.DINGTALK_ACCESS_TOKEN)
+
+/**
+ * 钉钉配置
+ */
+export const DINGTALK = {
+    DINGTALK_ACCESS_TOKEN: env.DINGTALK_ACCESS_TOKEN || '',
+    DINGTALK_SECRET: env.DINGTALK_SECRET || '',
+}
+
+/**
  * 周几启用推送，周日为0，周六为6。留空为全部
  */
 export const ENABLE_DAY = (env.ENABLE_DAY || '0,1,2,3,4,5,6').split(',').map(e => Number(e))
