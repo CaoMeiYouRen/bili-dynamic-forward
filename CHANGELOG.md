@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.1](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.0...v1.7.1) (2020-10-31)
+
+
+### 🐛 Bug 修复
+
+* 修复 hololive 拼写问题造成的错误 ([fee3897](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/fee3897))
+
 # [1.7.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.6.0...v1.7.0) (2020-10-31)
 
 
