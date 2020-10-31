@@ -203,7 +203,14 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?:
             }
         }).join('')}\n`
     }
-    text += `动态链接：${dynamic.link}\n`
+    switch (pushType) {
+        case 'dingding':
+            text += `动态链接：[${dynamic.link}(${dynamic.link})\n`
+            break
+        default:
+            text += `动态链接：${dynamic.link}\n`
+    }
+
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
     text = text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
     switch (pushType) {
