@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.2...v1.7.3) (2020-10-31)
+
+
+### 🐛 Bug 修复
+
+* 修改 动态链接 在 钉钉中的表现 ([ad14622](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/ad14622))
+
 ## [1.7.2](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.1...v1.7.2) (2020-10-31)
 
 
