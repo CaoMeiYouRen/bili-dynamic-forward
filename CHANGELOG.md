@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+# [1.7.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.6.0...v1.7.0) (2020-10-31)
+
+
+### ✨ 新功能
+
+* 新增 钉钉推送 ([7fa6395](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/7fa6395)), closes [#29](https://github.com/CaoMeiYouRen/bili-dynamic-forward/issues/29)
+
 # [1.6.0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.5.2...v1.6.0) (2020-10-31)
 
 
