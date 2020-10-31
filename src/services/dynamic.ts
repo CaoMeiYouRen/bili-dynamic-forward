@@ -212,7 +212,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?:
             urls.forEach(e => {
                 text = text.replace(e.cq, `![](${e.url})`)
             })
-            return text.replace('\n', '\n\n')
+            return text.replace(/\n/g, '\n\n')
         }
         default:
             return text
