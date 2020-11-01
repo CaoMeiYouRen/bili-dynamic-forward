@@ -1,9 +1,35 @@
 import { Subscribe, CQLog } from '@/models'
 import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList, isNewLive, biliLiveFormat } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
-import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME, ENABLE_DINGTALK_PUSH, ENABLE_PUSH_LIST } from '@/config'
+import { ENABLE_DAY, FREE_TIMES, IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME, ENABLE_DINGTALK_PUSH, ENABLE_PUSH_LIST } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
 import { dingtalk } from '@/utils/dingtalk'
+
+/**
+ * 当前是否为免打扰时间
+ *
+ * @author CaoMeiYouRen
+ * @date 2020-11-01
+ * @returns {boolean}
+ */
+function isFreeTime(): boolean {
+    const now = new Date()
+    let nowMins = now.getHours() * 60 + now.getMinutes()
+    const [a, b] = FREE_TIMES
+    const aMin = a.getHours() * 60 + a.getMinutes()
+    let bMin = b.getHours() * 60 + b.getMinutes()
+    if (a > b) { // 开始时间比结束晚，跨天
+        bMin += 24 * 60 // 给 b 加24小时到第二天
+        nowMins += 24 * 60 // 给 nowMins 加24小时到第二天
+    }
+    if (aMin <= nowMins && nowMins <= bMin) { // 在免打扰时间内
+        return true
+    }
+    if (!ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
+        return true
+    }
+    return false
+}
 
 /**
  * 向订阅者推送最新动态
@@ -85,7 +111,9 @@ setTimeout(() => {
         // eslint-disable-next-line no-constant-condition
         while (true) {
             try {
-                await pushDynamic(SUBSCRIBE_LIST)
+                if (!isFreeTime()) {
+                    await pushDynamic(SUBSCRIBE_LIST)
+                }
                 await sleep(SLEEP_TIME)
             } catch (error) {
                 console.error(error)

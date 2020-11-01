@@ -176,7 +176,7 @@ export async function unsubscribeAllUp(subId: number, subType: string) {
  * @param {number} [limit=20]
  * @returns
  */
-export async function oneClickDD(subId: number, subType: string, limit = 20) {
+export async function oneClickDD(subId: number, subType: string, limit: number = 20) {
     const vups = await getVupAndVtuberList(limit)
     for (let i = 0; i < vups.length; i++) {
         const e = vups[i]
@@ -211,20 +211,9 @@ export function querySubscribe(subId: number, subType: string) {
  * @param {number} [limit=3]
  * @returns
  */
-export async function getNotPushDynamic(userId: number, lastDynamic: number, limit = 3) {
+export async function getNotPushDynamic(userId: number, lastDynamic: number, limit: number = 3) {
     const channel = await getBiliDynamic(userId)
-    const now = new Date()
-    const nowMins = now.getHours() * 60 + now.getMinutes()
-    const [a, b] = FREE_TIMES
-    if (a > b) { // 开始时间比结束早
-        b.setHours(b.getHours() + 24)// 给 b 加24小时到第二天
-    }
-    const aMin = a.getHours() * 60 + a.getMinutes()
-    const bMin = b.getHours() * 60 + b.getMinutes()
-    if (aMin <= nowMins && nowMins <= bMin) { // 在免打扰时间内
-        return []
-    }
-    if (!channel || !ENABLE_DAY.includes(new Date().getDay())) { // 如果当前时间不在推送周期内则跳过
+    if (!channel) {
         return []
     }
     return channel?.item.filter(e => {
