@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.5](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.4...v1.7.5) (2020-11-01)
+
+
+### 🐛 Bug 修复
+
+* 新增 推送类型设置；统一钉钉名称 ([3729d30](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/3729d30))
+
 ## [1.7.4](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.3...v1.7.4) (2020-11-01)
 
 
