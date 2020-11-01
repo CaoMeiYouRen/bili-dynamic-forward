@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.4](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.3...v1.7.4) (2020-11-01)
+
+
+### 🐛 Bug 修复
+
+* 回退 动态链接格式 ([b33dfd9](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/b33dfd9))
+
 ## [1.7.3](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.2...v1.7.3) (2020-10-31)
 
 
