@@ -103,16 +103,30 @@ export async function isNewLive(uid: number) {
     return false
 }
 
-export function biliLiveFormat(userName: string, live: BiliLive) {
+export function biliLiveFormat(userName: string, live: BiliLive, pushType?: string) {
     let text = `检测到您关注的B站up主 ${userName} 开播了\n`
     text += `${removeHtmlTag(live.title)}\n`
     text += `${removeHtmlTag(live.description)}\n`
     let cover = live.user_cover
-    if (!cover.includes('@')) { // 开启图片压缩
-        cover += '@518w_1e_1c.png'
+    switch (pushType) {
+        case 'dingtalk':
+            text += `![](${cover})\n`
+            break
+        default: {
+            if (!cover.includes('@')) { // 开启图片压缩
+                cover += '@518w_1e_1c.png'
+            }
+            text += `${new CQImage(cover).toString()}\n`
+        }
     }
-    text += `${new CQImage(cover).toString()}\n`
     text += `直播间地址：https://live.bilibili.com/${live.room_id}\n`
     text += `开播时间：${timeFormat(live.live_time)}`
-    return text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
+    text = text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
+    switch (pushType) {
+        case 'dingtalk': {
+            return text.replace(/\n/g, '\n\n')
+        }
+        default:
+            return text
+    }
 }

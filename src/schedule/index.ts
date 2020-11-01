@@ -52,10 +52,17 @@ export async function pushDynamic(list: Subscribe[]) {
             const text = biliLiveFormat(sub.userName, live)
             for (let k = 0; k < suber.length; k++) {
                 const s = suber[k]
-                if (s.subType === 'group') {
-                    await sendGroupMsg(s.subId, text)
-                } else {
-                    await sendPrivateMsg(s.subId, text)
+                if (ENABLE_PUSH_LIST.includes('coolq')) {
+                    if (s.subType === 'group') {
+                        await sendGroupMsg(s.subId, text)
+                    } else {
+                        await sendPrivateMsg(s.subId, text)
+                    }
+                }
+                if (ENABLE_PUSH_LIST.includes('dingtalk') && ENABLE_DINGTALK_PUSH) {
+                    const ddText = biliLiveFormat(sub.userName, live, 'dingtalk')
+                    const title = `检测到您关注的B站up主 ${sub.userName} 开播了`
+                    await dingtalk(title, ddText)
                 }
                 await sleep(MSG_SLEEP_TIME)
             }
