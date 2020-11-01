@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.8](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.7...v1.7.8) (2020-11-01)
+
+
+### 🐛 Bug 修复
+
+* 修复 免打扰时间的判断错误 ([6445edc](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/6445edc))
+
 ## [1.7.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.6...v1.7.7) (2020-11-01)
 
 
