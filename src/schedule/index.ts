@@ -20,8 +20,14 @@ function isFreeTime(): boolean {
     let bMin = b.getHours() * 60 + b.getMinutes()
     if (a > b) { // 开始时间比结束晚，跨天
         bMin += 24 * 60 // 给 b 加24小时到第二天
-        nowMins += 24 * 60 // 给 nowMins 加24小时到第二天
+        const c = new Date()
+        c.setHours(b.getHours())
+        c.setMinutes(b.getMinutes())// 判断0点后
+        if (now < c) {
+            nowMins += 24 * 60 // 给 nowMins 加24小时到第二天
+        }
     }
+    // console.log({ aMin, nowMins, bMin })
     if (aMin <= nowMins && nowMins <= bMin) { // 在免打扰时间内
         return true
     }
