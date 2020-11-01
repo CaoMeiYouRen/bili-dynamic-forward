@@ -1,7 +1,7 @@
 import { Subscribe, CQLog } from '@/models'
 import { getNotPushDynamic, biliDynamicFormat, saveSubscribeList, isNewLive, biliLiveFormat } from '@/services'
 import { sleep, sendMsg, sendGroupMsg, sendPrivateMsg, printTime } from '@/utils'
-import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME, ENABLE_PUSH } from '@/config'
+import { IS_DEBUG, API_SLEEP_TIME, MSG_SLEEP_TIME, SLEEP_TIME, ENABLE_DINGTALK_PUSH, ENABLE_PUSH_LIST } from '@/config'
 import { SUBSCRIBE_LIST } from '@/db'
 import { dingtalk } from '@/utils/dingtalk'
 
@@ -25,13 +25,15 @@ export async function pushDynamic(list: Subscribe[]) {
                 const text = biliDynamicFormat(sub.userName, d)
                 for (let k = 0; k < suber.length; k++) {
                     const s = suber[k]
-                    if (s.subType === 'group') {
-                        await sendGroupMsg(s.subId, text)
-                    } else {
-                        await sendPrivateMsg(s.subId, text)
+                    if (ENABLE_PUSH_LIST.includes('coolq')) {
+                        if (s.subType === 'group') {
+                            await sendGroupMsg(s.subId, text)
+                        } else {
+                            await sendPrivateMsg(s.subId, text)
+                        }
                     }
-                    if (ENABLE_PUSH) {
-                        const ddText = biliDynamicFormat(sub.userName, d, 'dingding')
+                    if (ENABLE_PUSH_LIST.includes('dingtalk') && ENABLE_DINGTALK_PUSH) {
+                        const ddText = biliDynamicFormat(sub.userName, d, 'dingtalk')
                         const title = `检测到您关注的B站up主 ${sub.userName} 发布了新的动态`
                         await dingtalk(title, ddText)
                     }

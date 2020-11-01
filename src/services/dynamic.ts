@@ -88,7 +88,7 @@ export async function getBiliDynamic(uid: number, pushType?: string) {
                     const emoji = item?.display?.emoji_info?.emoji_details
                     emoji?.forEach(e => {
                         switch (pushType) {
-                            case 'dingding':
+                            case 'dingtalk':
                                 des = des.replace(
                                     new RegExp(`\\${e.text}`, 'g'),
                                     `![](${e.url})`,
@@ -180,7 +180,7 @@ export async function getBiliDynamic(uid: number, pushType?: string) {
  * @export
  * @param {string} userName
  * @param {RssItem} dynamic
- * @param {string} [pushType] 推送类型，dingding/coolq
+ * @param {string} [pushType] 推送类型，dingtalk/coolq
  * @returns
  */
 export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?: string) {
@@ -196,7 +196,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?:
                 e += '@518w_1e_1c.png'
             }
             switch (pushType) {
-                case 'dingding':
+                case 'dingtalk':
                     return `![](${e})`
                 default:
                     return new CQImage(e).toString()
@@ -207,7 +207,7 @@ export function biliDynamicFormat(userName: string, dynamic: RssItem, pushType?:
     text += `发布时间：${timeFormat(dynamic.pubDate)}`
     text = text.replace(/(\n[\s|\t]*\r*\n)/g, '\n')
     switch (pushType) {
-        case 'dingding': {
+        case 'dingtalk': {
             const urls = getImageUrl(text)
             urls.forEach(e => {
                 text = text.replace(e.cq, `![](${e.url})`)

@@ -54,11 +54,17 @@ export const SLEEP_TIME = Number(env.SLEEP_TIME || 60000)
  * 是否使用AV号
  */
 export const USE_AV = env.USE_AV === 'true'
+/**
+ * 启用的推送类型
+ */
+export const ENABLE_PUSH = env.ENABLE_PUSH || 'coolq,dingtalk'
 
+export const ENABLE_PUSH_LIST = ENABLE_PUSH.split(',')
 /**
  * 是否启用钉钉推送
  */
-export const ENABLE_PUSH = Boolean(env.DINGTALK_ACCESS_TOKEN)
+export const ENABLE_DINGTALK_PUSH = Boolean(env.DINGTALK_ACCESS_TOKEN)
+
 
 /**
  * 钉钉配置
