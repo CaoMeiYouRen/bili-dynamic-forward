@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.7](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.6...v1.7.7) (2020-11-01)
+
+
+### 🐛 Bug 修复
+
+* 修复 直播推送bug ([c548deb](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/c548deb))
+
 ## [1.7.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.5...v1.7.6) (2020-11-01)
 
 
