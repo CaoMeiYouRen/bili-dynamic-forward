@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.6](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.5...v1.7.6) (2020-11-01)
+
+
+### 🐛 Bug 修复
+
+* 优化：钉钉消息中图片不压缩 ([182bd75](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/182bd75))
+
 ## [1.7.5](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.4...v1.7.5) (2020-11-01)
 
 
