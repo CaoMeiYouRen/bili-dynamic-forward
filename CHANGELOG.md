@@ -1,5 +1,12 @@
 # bili-dynamic-forward
 
+## [1.7.10](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.9...v1.7.10) (2020-11-12)
+
+
+### 🐛 Bug 修复
+
+* 移除 mea ([44debb0](https://github.com/CaoMeiYouRen/bili-dynamic-forward/commit/44debb0)), closes [#31](https://github.com/CaoMeiYouRen/bili-dynamic-forward/issues/31)
+
 ## [1.7.9](https://github.com/CaoMeiYouRen/bili-dynamic-forward/compare/v1.7.8...v1.7.9) (2020-11-01)
 
 
