@@ -78,4 +78,8 @@ export const VUP_BAN_LIST = [
         name: '梭梭树',
         mid: 8163245,
     },
+    {
+        name: '神楽Mea_Official',
+        mid: 349991143,
+    },
 ]

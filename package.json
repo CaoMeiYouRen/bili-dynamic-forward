@@ -47,7 +47,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test",
+      "pre-commit": "npm run lint",
       "commit-msg": "validate-commit-msg"
     }
   },
