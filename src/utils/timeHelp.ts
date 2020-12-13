@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import colors = require('colors')
 import { CQLog } from '@/models'
 
-
 /**
  * 格式化时间
  * @export

@@ -111,7 +111,6 @@ export async function transferSubscribeUp(userId: number, subId: number, subType
     return followings.length
 }
 
-
 /**
  * 取消订阅指定up
  *

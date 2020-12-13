@@ -65,7 +65,6 @@ export const ENABLE_PUSH_LIST = ENABLE_PUSH.split(',')
  */
 export const ENABLE_DINGTALK_PUSH = Boolean(env.DINGTALK_ACCESS_TOKEN)
 
-
 /**
  * 钉钉配置
  */

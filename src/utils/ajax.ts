@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 import axios, { AxiosResponse } from 'axios'
 import { CACHE, UA } from '@/config'
 import { HttpError, HttpStatusCode } from '@/models'

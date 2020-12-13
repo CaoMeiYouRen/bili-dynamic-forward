@@ -35,7 +35,6 @@ bot.on('ready', async () => {
     app.run(bot)
 })
 
-
 bot.on('message.private', (event, ctx, tags) => {
     printTime(`[接收私聊消息] 类型:${ctx.sub_type} QQId:${ctx.user_id} msg:${ctx.message}`, CQLog.LOG_INFO_SUCCESS)
 })
@@ -45,7 +44,7 @@ bot.on('message.group', (event, ctx, tags) => {
 })
 
 bot.on('meta_event.heartbeat', ctx => { // 响应心跳连接
-    (async function () {
+    (async function() {
         try {
             const result = await bot('get_status')
             printTime(`API调用测试：get_status:${result.status}`, CQLog.LOG_DEBUG)

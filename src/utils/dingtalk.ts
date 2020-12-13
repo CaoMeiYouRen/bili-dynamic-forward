@@ -5,7 +5,6 @@ import { DINGTALK, ENABLE_PUSH } from '@/config'
 import { getPublicIP } from './ajax'
 import { timeFormat } from './timeHelp'
 
-
 let robot: Robot
 if (ENABLE_PUSH) {
     robot = new Robot({

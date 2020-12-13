@@ -110,7 +110,6 @@ export async function pushDynamic(list: Subscribe[]) {
     return true
 }
 
-
 setTimeout(() => {
     (async () => {
         printTime('开始轮询最新动态', CQLog.LOG_DEBUG)

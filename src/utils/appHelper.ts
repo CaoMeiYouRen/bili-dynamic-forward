@@ -30,16 +30,14 @@ export function getCQWebSocketOption(dirname?: string): CQWebSocketOption {
         } else if (fs.existsSync(path.join(dirname, './setting.json'))) {
             setting = JSON5.parse(fs.readFileSync(path.join(dirname, './setting.json'), 'utf8'))
         }
-    } else {
-        if (fs.existsSync('setting.yaml')) {
-            setting = YAML.parse(fs.readFileSync('setting.yaml', 'utf8'))
-        } else if (fs.existsSync('setting.yml')) {
-            setting = YAML.parse(fs.readFileSync('setting.yml', 'utf8'))
-        } else if (fs.existsSync('setting.jsonc')) {
-            setting = JSON5.parse(fs.readFileSync('setting.jsonc', 'utf8'))
-        } else if (fs.existsSync('setting.json')) {
-            setting = JSON5.parse(fs.readFileSync('setting.json', 'utf8'))
-        }
+    } else if (fs.existsSync('setting.yaml')) {
+        setting = YAML.parse(fs.readFileSync('setting.yaml', 'utf8'))
+    } else if (fs.existsSync('setting.yml')) {
+        setting = YAML.parse(fs.readFileSync('setting.yml', 'utf8'))
+    } else if (fs.existsSync('setting.jsonc')) {
+        setting = JSON5.parse(fs.readFileSync('setting.jsonc', 'utf8'))
+    } else if (fs.existsSync('setting.json')) {
+        setting = JSON5.parse(fs.readFileSync('setting.json', 'utf8'))
     }
     return Object.assign({
         accessToken: '',
@@ -61,7 +59,6 @@ export function getCQWebSocketOption(dirname?: string): CQWebSocketOption {
         },
     }, setting)
 }
-
 
 /**
  * 发送私聊消息
@@ -87,12 +84,12 @@ export async function sendPrivateMsg(user_id: number, message: string | CQMessag
         printTime(`[发送私聊消息] QQID:${user_id} msg:${JSON.stringify(message)} 执行结果:${JSON.stringify(result)}`, CQLog.LOG_INFO_SEND)
         if (result['status'] === 'ok') {
             return result['data']['message_id']
-        } else {
-            if (result['retcode'] > 0) {
-                return -result['retcode'] - 1000  // 为了和message_id作区分，对于来自 HTTP API 插件的错误码取相反数 -1000 处理，即，原本为1的错误码，现在为-1001
-            }
-            return result['retcode']
+        } 
+        if (result['retcode'] > 0) {
+            return -result['retcode'] - 1000  // 为了和message_id作区分，对于来自 HTTP API 插件的错误码取相反数 -1000 处理，即，原本为1的错误码，现在为-1001
         }
+        return result['retcode']
+        
     } catch (error) {
         printTime('[cq-robot]请求 send_private_msg 发生错误', CQLog.LOG_ERROR)
         console.error(error)
@@ -121,12 +118,12 @@ export async function sendGroupMsg(group_id: number, message: string | CQMessage
         printTime(`[发送群消息] 群号:${group_id} msg:${JSON.stringify(message)} 执行结果:${JSON.stringify(result)}`, CQLog.LOG_INFO_SEND)
         if (result['status'] === 'ok') {
             return result['data']['message_id']
-        } else {
-            if (result['retcode'] > 0) {
-                return -result['retcode'] - 1000  // 为了和message_id作区分，对于来自 HTTP API 插件的错误码取相反数 -1000 处理，即，原本为1的错误码，现在为-1001
-            }
-            return result['retcode']
+        } 
+        if (result['retcode'] > 0) {
+            return -result['retcode'] - 1000  // 为了和message_id作区分，对于来自 HTTP API 插件的错误码取相反数 -1000 处理，即，原本为1的错误码，现在为-1001
         }
+        return result['retcode']
+        
     } catch (error) {
         printTime('[cq-robot]请求 send_group_msg 发生错误', CQLog.LOG_ERROR)
         console.error(error)
@@ -208,9 +205,9 @@ export async function getGroupMemberInfo(group_id: number, user_id: number, no_c
         })
         if (result['status'] === 'ok') {
             return result['data']
-        } else {
-            return new MemberInfo()
-        }
+        } 
+        return new MemberInfo()
+        
     } catch (error) {
         printTime('[cq-robot]请求 get_group_member_info 发生错误', CQLog.LOG_ERROR)
         console.error(error)
