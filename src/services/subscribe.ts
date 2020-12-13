@@ -1,14 +1,13 @@
 import fs = require('fs-extra')
-import _ from 'lodash'
-import { Subscribe, Subscriber, CQError, SubscribeError, SubscribeType } from '@/models'
+import { uniq, pull } from 'lodash-es'
+import { Subscribe, Subscriber, CQError } from '@/models'
 import { getUsernameFromUID, getAllFollowings } from './helper'
 import { globalCache, SUBSCRIBE_LIST } from '@/db'
 import { getBiliDynamic } from './dynamic'
 import { getVupAndVtuberList } from './dd'
-import { ENABLE_DAY, FREE_TIMES } from '@/config';
 (async () => {
     let list = await getSubscribeList()
-    list = _.uniq(list)
+    list = uniq(list)
     for (let i = 0; i < list.length; i++) {
         const e = list[i]
         if (!e.userName) {
@@ -130,9 +129,9 @@ export async function unsubscribeUp(userId: number, subId: number, subType: stri
     }
     const suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
     if (suber) {
-        _.pull(sub.subscribers, suber)
+        pull(sub.subscribers, suber)
         if (sub.subscribers.length === 0) {
-            _.pull(SUBSCRIBE_LIST, sub)
+            pull(SUBSCRIBE_LIST, sub)
         }
         await saveSubscribeList(SUBSCRIBE_LIST)
         return sub

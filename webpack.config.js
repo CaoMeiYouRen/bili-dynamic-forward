@@ -1,9 +1,28 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const path = require('path')
 const env = process.env
-const IS_DEBUG = env.NODE_ENV === 'development'
+const __DEV__ = env.NODE_ENV === 'development'
+const ANALYZER = Boolean(env.ANALYZER)
+const plugins = []
+if (ANALYZER) {
+    plugins.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            analyzerHost: '127.0.0.1',
+            analyzerPort: 8080,
+            reportFilename: 'index.html',
+            defaultSizes: 'parsed',
+            openAnalyzer: true,
+            generateStatsFile: false,
+            statsFilename: 'stats.json',
+            statsOptions: null,
+            logLevel: 'info',
+        })
+    )
+}
 module.exports = {
-    devtool: IS_DEBUG ? 'source-map' : '',
-    mode: IS_DEBUG ? 'development' : 'production',
+    devtool: __DEV__ ? 'source-map' : '',
+    mode: __DEV__ ? 'development' : 'production',
     entry: {
         build: path.join(__dirname, './src/index.ts')
     },
@@ -24,7 +43,7 @@ module.exports = {
         __filename: false,
         __dirname: false,
     },
-    plugins: [],
+    plugins,
     module: {
         rules: [{
             test: /\.(ts|tsx)$/,

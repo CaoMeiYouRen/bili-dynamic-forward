@@ -1,9 +1,7 @@
-import fs = require('fs-extra')
-import _ = require('lodash')
-import { globalCache, filestore } from '@/db'
+import { filestore } from '@/db'
 import { ajax } from '@/utils/ajax'
 import { RssChannel, BiliRoom } from '@/models'
-import { BiliLiveResult, BiliLive } from '@/models/BiliLive'
+import { BiliLive } from '@/models/BiliLive'
 import { getRoomIdFromUID } from './helper'
 import { CQImage } from 'cq-websocket'
 import { timeFormat, removeHtmlTag } from '@/utils'
