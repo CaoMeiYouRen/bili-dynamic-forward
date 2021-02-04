@@ -85,7 +85,7 @@
     "@semantic-release/git": "^9.0.0",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^9.0.5",
-    "@types/json5": "0.0.30",
+    "@types/json5": "2.2.0",
     "@types/lodash": "^4.14.155",
     "@types/lodash-es": "^4.17.3",
     "@types/lru-cache": "^5.1.0",
