@@ -76,7 +76,7 @@ export const DINGTALK = {
 /**
  * 周几启用推送，周日为0，周六为6。留空为全部
  */
-export const ENABLE_DAY = (env.ENABLE_DAY || '0,1,2,3,4,5,6').split(',').map(e => Number(e))
+export const ENABLE_DAY = (env.ENABLE_DAY || '0,1,2,3,4,5,6').split(',').map((e) => Number(e))
 
 const FREE_TIME = env.FREE_TIME || '23:00-7:00'
 

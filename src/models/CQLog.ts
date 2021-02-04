@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * 日志级别常量
  *

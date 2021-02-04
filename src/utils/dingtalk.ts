@@ -48,7 +48,7 @@ export async function feedback(title: string, text?: string) {
             const { name, version } = pack
             const ip = await getPublicIP()
             const time = timeFormat()
-            const meta = Object.entries({ time, name, version, ip }).map(e => `## ${e[0]}: ${e[1]}`).join('\n')
+            const meta = Object.entries({ time, name, version, ip }).map((e) => `## ${e[0]}: ${e[1]}`).join('\n')
             text = text ? `${meta}\n${text}` : meta
             return dingtalk(title, text)
         }

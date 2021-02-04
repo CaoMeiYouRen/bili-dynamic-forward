@@ -1,6 +1,3 @@
-import path = require('path')
-import fs = require('fs-extra')
-import JSONbig = require('json-bigint')
 /**
  * 递归解析json文本
  *
@@ -77,7 +74,7 @@ export function isNumber(text: string) {
  * @returns
  */
 export async function sleep(time: number) {
-    return new Promise(resolve => setTimeout(resolve, time))
+    return new Promise((resolve) => setTimeout(resolve, time))
 }
 
 /**
@@ -103,5 +100,5 @@ export function removeHtmlTag(str: string) {
  */
 export function getImageUrl(image: string) {
     const res = image.matchAll(/\[CQ:image,file=(.*?)\]/g)
-    return [...res].map(e => ({ cq: e[0], url: e[1] }))
+    return [...res].map((e) => ({ cq: e[0], url: e[1] }))
 }

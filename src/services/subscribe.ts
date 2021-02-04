@@ -57,7 +57,7 @@ export async function getSubscribeList(): Promise<Subscribe[]> {
  * @param {string} [userName]
  */
 export async function subscribeUp(userId: number, subId: number, subType: string, userName?: string) {
-    let sub = SUBSCRIBE_LIST.find(e => e.userId === userId)
+    let sub = SUBSCRIBE_LIST.find((e) => e.userId === userId)
     if (!sub) {
         if (!userName) {
             userName = await getUsernameFromUID(userId)
@@ -78,7 +78,7 @@ export async function subscribeUp(userId: number, subId: number, subType: string
         await saveSubscribeList(SUBSCRIBE_LIST)
         return sub
     }
-    let suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
+    let suber = sub.subscribers.find((e) => e.subId === subId && e.subType === subType)
     if (suber) { // 已经订阅了
         throw new CQError('该 up 已订阅，请勿重复订阅')
     }
@@ -122,11 +122,11 @@ export async function transferSubscribeUp(userId: number, subId: number, subType
  * @param {string} subType 订阅类型 personal/group
  */
 export async function unsubscribeUp(userId: number, subId: number, subType: string) {
-    const sub = SUBSCRIBE_LIST.find(e => e.userId === userId)
+    const sub = SUBSCRIBE_LIST.find((e) => e.userId === userId)
     if (!sub) {
         throw new CQError('该 up 未被任何用户订阅')
     }
-    const suber = sub.subscribers.find(e => e.subId === subId && e.subType === subType)
+    const suber = sub.subscribers.find((e) => e.subId === subId && e.subType === subType)
     if (suber) {
         pull(sub.subscribers, suber)
         if (sub.subscribers.length === 0) {
@@ -148,7 +148,7 @@ export async function unsubscribeUp(userId: number, subId: number, subType: stri
  * @param {string} subType 订阅类型 personal/group
  */
 export async function unsubscribeAllUp(subId: number, subType: string) {
-    const subs = SUBSCRIBE_LIST.filter(e => e.subscribers.find(f => f.subId === subId && f.subType === subType))
+    const subs = SUBSCRIBE_LIST.filter((e) => e.subscribers.find((f) => f.subId === subId && f.subType === subType))
     if (subs.length === 0) {
         throw new CQError('您尚未订阅任何 up')
     }
@@ -196,7 +196,7 @@ export async function oneClickDD(subId: number, subType: string, limit: number =
  * @param {string} subType
  */
 export function querySubscribe(subId: number, subType: string) {
-    return SUBSCRIBE_LIST.filter(e => e.subscribers.find(f => f.subId === subId && f.subType === subType))
+    return SUBSCRIBE_LIST.filter((e) => e.subscribers.find((f) => f.subId === subId && f.subType === subType))
 }
 /**
  * 取未被推送的动态数组
@@ -214,7 +214,7 @@ export async function getNotPushDynamic(userId: number, lastDynamic: number, lim
     if (!channel) {
         return []
     }
-    return channel?.item.filter(e => {
+    return channel?.item.filter((e) => {
         if (!e.pubDate) {
             return false
         }

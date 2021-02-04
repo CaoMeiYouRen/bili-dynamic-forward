@@ -10,6 +10,8 @@ module.exports = {
     ],
     rules: {
         'no-console': 0, // 禁止console
-        'no-shadow': 0
+        'no-sync': 0,
+        'no-empty': 0,
+        'no-unused-vars': 0
     },
 }
